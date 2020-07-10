@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
+import { useGestureHandlerRef } from '@react-navigation/stack';
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
@@ -14,6 +15,34 @@ export default function RegistrationScreen({navigation}) {
     }
 
     const onRegisterPress = () => {
+        if(password !== confirmPassword) {
+            alert("Las contraseñas no coinciden.")
+            return
+        }
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email,password) //Creates a new account.
+            .then((response) => {
+                const uid = response.user.uid
+                const data = {
+                    id: uid,
+                    email,
+                    fullName,
+                };
+            const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
+            userRef //Storing data as key: uid value: data.
+                .doc(uid)
+                .set(data)
+                .then(() => {
+                    navigation.navigate('Home', {user: data}) //Navigates to home with user info.
+                })
+                .catch((error) => {
+                    alert(error)
+                });
+            })
+            .catch((error) => {
+                alert(error)
+            });
     }
 
     return (
