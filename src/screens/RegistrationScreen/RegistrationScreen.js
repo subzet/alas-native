@@ -8,6 +8,7 @@ import { firebase } from '../../firebase/config'
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
+    const [document, setDocument] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -51,56 +52,64 @@ export default function RegistrationScreen({navigation}) {
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <Image
-                    style={styles.logo}
-                    source={require('../../../assets/icon.png')}
-                />
+                <Text style={styles.label}>Nombre completo</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder='Nombre completo.'
-                    placeholderTextColor="#aaaaaa"
+                    placeholder='Ingrese su nombre completo.'
+                    placeholderTextColor="#666666"
                     onChangeText={(text) => setFullName(text)}
                     value={fullName}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={styles.label}>E-Mail</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
+                    placeholder='Ingrese su e-mail.'
+                    placeholderTextColor="#666666"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={styles.label}>DNI/Pasaporte</Text>
                 <TextInput
                     style={styles.input}
-                    placeholderTextColor="#aaaaaa"
+                    placeholder='Ingrese su DNI/Pasaporte.'
+                    placeholderTextColor="#666666"
+                    onChangeText={(text) => setDocument(text)}
+                    value={document}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <Text style={styles.label}>Password</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholderTextColor="#666666"
                     secureTextEntry
-                    placeholder='Password'
+                    placeholder='Ingrese su contraseña.'
                     onChangeText={(text) => setPassword(text)}
                     value={password}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={styles.label}>Confirme su password</Text>
                 <TextInput
                     style={styles.input}
-                    placeholderTextColor="#aaaaaa"
+                    placeholderTextColor="#666666"
                     secureTextEntry
-                    placeholder='Confirm Password'
+                    placeholder='Repita su contraseña.'
                     onChangeText={(text) => setConfirmPassword(text)}
                     value={confirmPassword}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Crear cuenta.</Text>
+                    <Text style={styles.buttonTitle}>Registrarse.</Text>
                 </TouchableOpacity>
-                <View style={styles.footerView}>
-                    <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
-                </View>
             </KeyboardAwareScrollView>
         </View>
     )
