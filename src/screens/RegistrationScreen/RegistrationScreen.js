@@ -30,13 +30,14 @@ export default function RegistrationScreen({navigation}) {
                     id: uid,
                     email,
                     fullName,
+                    document
                 };
             const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
             userRef //Storing data as key: uid value: data.
                 .doc(uid)
                 .set(data)
                 .then(() => {
-                    navigation.navigate('Home', {user: data}) //Navigates to home with user info.
+                    navigation.navigate('Login') //Navigates to home with user info.
                 })
                 .catch((error) => {
                     alert(error)

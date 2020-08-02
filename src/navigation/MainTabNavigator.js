@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 
 const MainTab = createBottomTabNavigator();
 
-export default function  MainTabNavigator(){
+export default function  MainTabNavigator({navigation}){
     return(
     <MainTab.Navigator
         screenOptions={({ route }) => ({
@@ -31,9 +31,9 @@ export default function  MainTabNavigator(){
           inactiveTintColor: 'gray',
         }}
       >
-            <MainTab.Screen name='Home' component={HomeStackNavigator}></MainTab.Screen>
-            <MainTab.Screen name='Investment' component={InvestmentStackNavigator}></MainTab.Screen>
-            <MainTab.Screen name='Settings' component={SettingsStackNavigator}></MainTab.Screen>
+            <MainTab.Screen name='Home' component={HomeStackNavigator}/>
+            <MainTab.Screen name='Investment' component={InvestmentStackNavigator}/>
+            <MainTab.Screen name='Settings' component={SettingsStackNavigator}/>
         </MainTab.Navigator>
     )
 }

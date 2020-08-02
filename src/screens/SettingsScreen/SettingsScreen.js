@@ -4,7 +4,7 @@ import {   Text,
     SafeAreaView,
     SectionList} from 'react-native'
 import styles from './styles';
-
+import { firebase } from '../../firebase/config'
 
 
 const Item = ({ item }) => (
@@ -53,7 +53,7 @@ export default function SettingsScreen({navigation}) {
             data:[
                 {
                     title: 'Cerrar sesión',
-                    action: () => { navigation.navigate('Login') }
+                    action: () => { firebase.auth().signOut() }
                 }
             ]
         }
