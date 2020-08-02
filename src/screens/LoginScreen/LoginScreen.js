@@ -18,28 +18,25 @@ export default function LoginScreen({navigation}) {
     }
 
     const onLoginPress = () => {
-        // firebase
-        //     .auth()
-        //     .signInWithEmailAndPassword(email,password)
-        //     .then((response) => {
-        //         const uid = response.user.uid
-        //         const usersRef = firebase.firestore().collection('users')
-        //         usersRef
-        //             .doc(uid)
-        //             .get()
-        //             .then(firestoreDocument => {
-        //                 if(!firestoreDocument.exists) {
-        //                     alert("El usuario ya no existe.")
-        //                     return
-        //                 }
-        //                 const user = firestoreDocument.data()
-        //                 navigation.navigate('Home', {user})
-        //             })
-        //             .catch(error => {
-        //                 alert(error)
-        //             })
-        //     })
-        navigation.navigate('Home', {user:{}})
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email,password)
+            .then((response) => {
+                const uid = response.user.uid
+                const usersRef = firebase.firestore().collection('users')
+                usersRef
+                    .doc(uid)
+                    .get()
+                    .then(firestoreDocument => {
+                        if(!firestoreDocument.exists) {
+                            alert("El usuario ya no existe.")
+                            return
+                        }
+                    })
+                    .catch(error => {
+                        alert(error)
+                    })
+            })
     }
 
     return (
