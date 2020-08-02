@@ -32,20 +32,21 @@ export default function RegistrationScreen({navigation}) {
                     fullName,
                     document
                 };
-            const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
-            userRef //Storing data as key: uid value: data.
-                .doc(uid)
-                .set(data)
-                .then(() => {
-                    navigation.navigate('Login') //Navigates to home with user info.
+                const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
+                userRef //Storing data as key: uid value: data.
+                    .doc(uid)
+                    .set(data)
+                    .then(() => {
+                        firebase.auth().signOut()
+                    })
+                    .catch((error) => {
+                        alert(error)
+                    });
                 })
                 .catch((error) => {
                     alert(error)
                 });
-            })
-            .catch((error) => {
-                alert(error)
-            });
+        navigation.navigate('Login') //Navigates to home with user info.
     }
 
     return (

@@ -10,11 +10,12 @@ const register = (userdata) => {
     
 }
 
-const getUserMainScreen = (user) => {
+export const getUserMainScreen = (user) => {
     return {
         username: 'mponsa',
         balanceLC: 50123.12,
         balanceDAI: 378.766,
+        userLC: 'ARS',
         movements:[
             {
                 date: '2020-07-23T02:38:55+00:00',
@@ -57,8 +58,4 @@ const getUserMainScreen = (user) => {
         ] 
 
     }
-}
-
-const getUserMainScreen = () => {
-    
 }

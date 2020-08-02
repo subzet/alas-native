@@ -1,11 +1,52 @@
 import { StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 
+
+
 export default StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
+    },
+    statusContainer: {
+        flex: 1,
+        flexDirection: 'column',
         backgroundColor: Colors.backgroundMainColor,
-        alignItems: 'center'
+    },
+    statusBarContainer:{
+        flex: 18,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    sectionTitleContainer:{
+        height: '10%',
+        marginTop: '73%',
+        position:'absolute',
+        backgroundColor: 'white',
+        alignItems:'center',
+        paddingTop:'3%',
+        borderRadius: 30,
+        alignSelf:'center',
+        width: '80%'
+    },
+    sectionTitleText:{
+        color: '#36A9E1',
+        fontSize: 16,
+        fontWeight: 'bold',
+        letterSpacing: 2
+    },
+    sectionTitleUnderline: {
+            borderBottomColor: Colors.backgroundMainColor   ,
+            borderBottomWidth: 2,
+            width: '40%',
+            alignSelf: 'center',
+    },
+    transactionContainer: {
+        flex: 1,
+        alignItems: 'center',
+        color: 'black',
+        backgroundColor: 'white'
     },
     input: {
         height: 48,
@@ -19,7 +60,7 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
     testText:{
-        color: 'white',
+        color: 'black',
         marginTop: 120
     }
 })
