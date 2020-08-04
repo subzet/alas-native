@@ -20,8 +20,10 @@ export const getUserMainScreen = (user) => {
             {
                 date: '2020-07-23T02:38:55+00:00',
                 type: 'bank-transfer',
+                typeDesc: 'Depósito de dinero',
                 amountLC: 23000.00,
                 amountDAI: 164.90,
+                userLC: 'ARS',
                 extra:{
                     from: 'Santander Rio'
                 }
@@ -29,8 +31,10 @@ export const getUserMainScreen = (user) => {
             {
                 date: '2020-07-23T02:38:55+00:00',
                 type: 'money-sent',
-                amountLC: 3000.00,
-                amountDAI: 21.43,
+                typeDesc: 'Envío de dinero',
+                amountLC: -3000.00,
+                amountDAI: -21.43,
+                userLC: 'ARS',
                 extra:{
                     from: 'DAI Wallet',
                     to: '0x4ac862034d0c4a9860483044836fb1f882b4ccd7',
@@ -40,8 +44,10 @@ export const getUserMainScreen = (user) => {
             {
                 date: '2020-07-23T02:38:55+00:00',
                 type: 'payment',
+                typeDesc: 'Pago',
                 amountLC: 130,
                 amountDAI: 0.92,
+                userLC: 'ARS',
                 extra:{
                     to: 'UADE'
                 }
@@ -49,8 +55,10 @@ export const getUserMainScreen = (user) => {
             {
                 date: '2020-07-23T02:38:55+00:00',
                 type: 'investment',
+                typeDesc: 'Inversión',
                 amountLC: 5505,
                 amountDAI: 39.29,
+                userLC: 'ARS',
                 extra:{
                     to: 'UADE'
                 }

@@ -21,7 +21,7 @@ export default StyleSheet.create({
     },
     sectionTitleContainer:{
         height: '10%',
-        marginTop: '43%',
+        marginTop: '53%',
         position:'absolute',
         backgroundColor: 'white',
         alignItems:'center',

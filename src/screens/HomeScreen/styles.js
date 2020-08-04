@@ -9,19 +9,54 @@ export default StyleSheet.create({
         flexDirection: 'column',
     },
     statusContainer: {
-        flex: 1,
+        flex: 4,
         flexDirection: 'column',
         backgroundColor: Colors.backgroundMainColor,
     },
     statusBarContainer:{
         flex: 18,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
+        alignItems: 'center'
     },
+    statusNickname: {
+        paddingTop: '20%',
+        fontSize: 18,
+        fontFamily: 'Helvetica',
+        fontWeight:'bold',
+        color: "#B3B3B3"
+    },
+    statusBalanceLC: {
+        paddingTop: '1%',
+        fontSize: 40,
+        fontFamily: 'Helvetica',
+        fontWeight:'bold',
+        color: "white"
+    },
+    statusBalanceDAI: {
+        paddingTop: '2%',
+        fontSize: 18,
+        fontFamily: 'Helvetica',
+        fontWeight:'bold',
+        color: "#B3B3B3"
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginTop: '5%',
+        height: '15%',
+        width: '70%',
+        borderRadius: 5,
+        backgroundColor: '#66B2FF',
+        justifyContent:'space-around'
+    },
+    tabButton:{
+        flex: 1,
+        justifyContent:'center'
+    },
+    tabButtonText:{
+        color: 'white'
+    },  
     sectionTitleContainer:{
         height: '10%',
-        marginTop: '73%',
+        marginTop: '70%', //Change this according to cellphone
         position:'absolute',
         backgroundColor: 'white',
         alignItems:'center',
@@ -43,10 +78,42 @@ export default StyleSheet.create({
             alignSelf: 'center',
     },
     transactionContainer: {
-        flex: 1,
-        alignItems: 'center',
+        flex: 6,
+        paddingLeft:'5%',
+        paddingRight:'5%',
         color: 'black',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+    },
+    transactionDate:{
+        marginTop: '5%',
+        marginBottom: '2.5%',
+        color:'#666666',
+        fontFamily: 'Helvetica',
+    },
+    transaction:{
+        flexDirection: 'row',
+        width: '90%',
+        height: 85,
+        backgroundColor: '#F5F5F5',
+        borderRadius: 10,
+        alignSelf: 'center',
+        justifyContent:'space-around',
+        alignItems: 'center'
+    },
+    transactionImageContainer:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    transactionDetailContainer:{
+        flex:2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    transactionAmountContainer:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     input: {
         height: 48,

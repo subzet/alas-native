@@ -7,6 +7,7 @@ import { firebase } from '../../firebase/config'
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
+    const [nickName, setNickname] = useState('')
     const [email, setEmail] = useState('')
     const [document, setDocument] = useState('')
     const [password, setPassword] = useState('')
@@ -30,6 +31,7 @@ export default function RegistrationScreen({navigation}) {
                     id: uid,
                     email,
                     fullName,
+                    nickName,
                     document
                 };
                 const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
@@ -64,6 +66,16 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
+                <Text style={styles.label}>Apodo</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Ingrese su apodo.'
+                    placeholderTextColor="#666666"
+                    onChangeText={(text) => setNickname(text)}
+                    value={nickName}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
                 <Text style={styles.label}>E-Mail</Text>
                 <TextInput
                     style={styles.input}
@@ -84,7 +96,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>Contraseña</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#666666"
@@ -95,7 +107,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.label}>Confirme su password</Text>
+                <Text style={styles.label}>Confirme su contraseña</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#666666"
@@ -106,7 +118,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
+                <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Inicia sesión</Text></Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
