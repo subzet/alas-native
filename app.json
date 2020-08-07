@@ -21,6 +21,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "infoPlist": {
+      "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
     }
   }
 }

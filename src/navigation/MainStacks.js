@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen, InvestmentScreen, SettingsScreen } from '../screens';
+import { PaymentStackNavigator } from './PaymentStack'
 
 const HomeStack = createStackNavigator();
 
@@ -8,6 +9,7 @@ export function HomeStackNavigator(){
   return(
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
       <HomeStack.Screen name="Home" component={HomeScreen}/>
+      <HomeStack.Screen name='Pagar' component={PaymentStackNavigator}/>
     </HomeStack.Navigator>
   )
 }

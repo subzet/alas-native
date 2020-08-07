@@ -106,14 +106,28 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     transactionDetailContainer:{
-        flex:2,
+        flex:3,
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
     },
-    transactionAmountContainer:{
-        flex:1,
+    transactionType:{
+        flex: .5,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    transactionDetail:{
+        fontFamily: 'Helvetica',
+    },
+    transactionAmountContainer:{
+        flex:.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    transactionAmount:{
+        flex: .5,
+        alignItems: 'center'
     },
     input: {
         height: 48,

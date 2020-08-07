@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
 import { Text, View, SafeAreaView } from 'react-native'
 import styles from './styles';
-import { firebase } from '../../firebase/config'
 import { AuthContext } from '../../utils/authContext'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -22,12 +20,22 @@ export default function HomeScreen({navigation}) {
     }
 
     const pay = () => {
-        console.log('todo');
+        navigation.navigate('Pagar')
     }
 
     const viewTransactionDetail = () => {
         console.log('todo');
     }
+
+    const Icon = ({txType}) => {
+        switch (txType){
+            case 'payment': return (<FontAwesome5 name="store" size={40} color="black" />)
+            case 'investment': return(<Entypo name="line-graph" size={40} color="black" />)
+            case 'money-sent': return (<FontAwesome5 name="money-bill-wave" size={40} color="black" />)
+            case 'bank-transfer': return (<MaterialCommunityIcons name="bank" size={40} color="black" />)
+        }
+    }
+
 
     const Transactions = ({transactions}) => (
             
@@ -36,9 +44,14 @@ export default function HomeScreen({navigation}) {
                     <>
                     <Text style={styles.transactionDate}>{(new Date(transaction.date)).toLocaleDateString('es-ES',formatDateOptions)}</Text>
                     <TouchableOpacity style={styles.transaction} onPress={viewTransactionDetail}>
-                        <View style={styles.transactionImageContainer}><MaterialCommunityIcons name="bank" size={24} color="black" /></View>
-                        <View style={styles.transactionDetailContainer}><Text styles={styles.transactionDetail}>{transaction.typeDesc}</Text></View>
-                        <View style={styles.transactionAmountContainer}><Text styles={styles.transactionDetail}>{transaction.userLC + ' ' + transaction.amountLC}</Text></View>
+                        <View style={styles.transactionImageContainer}><Icon txType={transaction.type}/></View>
+                        <View style={styles.transactionDetailContainer}>
+                            <View style={styles.transactionType}><Text styles={styles.transactionDetail}>{transaction.typeDesc}</Text></View>
+                            <View style={styles.transactionAmountContainer}>
+                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{transaction.userLC + transaction.amountLC < 0 ? '- $' + (-transaction.amountLC) : ' $' + transaction.amountLC }</Text></View>
+                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{'DAI' + ' ' + transaction.amountDAI}</Text></View>
+                            </View>
+                        </View>
                     </TouchableOpacity>
                     </>
                 )
