@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import { useGestureHandlerRef } from '@react-navigation/stack';
 import { firebase } from '../../firebase/config'
 
 export default function RegistrationScreen({navigation}) {
@@ -18,10 +17,7 @@ export default function RegistrationScreen({navigation}) {
     }
 
     const onRegisterPress = () => {
-        if(password !== confirmPassword) {
-            alert("Las contraseñas no coinciden.")
-            return
-        }
+        if(validateInputs()){
         firebase
             .auth()
             .createUserWithEmailAndPassword(email,password) //Creates a new account.
@@ -49,6 +45,16 @@ export default function RegistrationScreen({navigation}) {
                     alert(error)
                 });
         navigation.navigate('Login') //Navigates to home with user info.
+        }
+    }
+
+    const validateInputs = () => {
+        if(password != confirmPassword){
+            alert("Las contraseñas no coinciden.")
+        }
+        if(document == '' || email == '' || fullName == '' || nickName == ''){
+            alert("Los campos son requeridos, por favor completalos.")
+        }
     }
 
     return (

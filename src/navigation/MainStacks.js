@@ -1,7 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, InvestmentScreen, SettingsScreen } from '../screens';
+import { HomeScreen, InvestmentScreen, SettingsScreen, ProfileScreen } from '../screens';
 import { PaymentStackNavigator } from './PaymentStack'
+import Colors from '../constants/Colors';
 
 const HomeStack = createStackNavigator();
 
@@ -34,10 +35,20 @@ const settingsScreenStyles = {
   headerLeft: null
 }
 
+const profileScreenStyles = {
+  title: 'Perfil',
+  headerStyle: {
+    backgroundColor: Colors.backgroundMainColor,
+    color: Colors.backgroundSecondaryColor
+  },
+  headerTintColor:'#fff'
+}
+
 export function SettingsStackNavigator(){
   return(
     <SettingsStack.Navigator>
       <SettingsStack.Screen name="Settings" options={settingsScreenStyles} component={SettingsScreen}/>
+      <SettingsStack.Screen name="Perfil"  options={profileScreenStyles} component={ProfileScreen}/>
     </SettingsStack.Navigator>
   )
 }

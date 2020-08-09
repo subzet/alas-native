@@ -67,3 +67,26 @@ export const getUserMainScreen = (user) => {
 
     }
 }
+
+
+export const getUserInvestmentScreen = (user) => {
+    return {
+        username: 'mponsa',
+        balanceLC: 1300.12,
+        balanceDAI: 10.076524,
+        userLC: 'ARS',
+        investmentProviders:[
+            {
+                protocol: 'compound',
+                actualRate: 0.0682,
+                balanceLC: 1300,
+                balanceDAI: 10.076524,
+                interestLC: 3,
+                interestDAI: 0.034,
+                sinceDate: '2020-07-23T02:38:55+00:00',
+                userLC: 'ARS'
+            }
+        ] 
+
+    }
+}

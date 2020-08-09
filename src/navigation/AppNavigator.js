@@ -4,7 +4,7 @@ import { LoginScreen, RegistrationScreen, SplashScreen } from '../screens/';
 import { firebase } from '../firebase/config'
 import MainTabNavigator from './MainTabNavigator';
 import { AuthContext } from '../utils/authContext'
-import { getUserMainScreen } from '../api/api'
+import { getUserMainScreen, getUserInvestmentScreen } from '../api/api'
 
 const AuthNavigator = createStackNavigator();
 
@@ -23,6 +23,7 @@ export default function AuthStack(){
           const userWithData = {
             userData : userDoc.data(),
             userHome : getUserMainScreen(user.uid),
+            userInvestment : getUserInvestmentScreen(user.uid),
             userAuth : user 
           }
           setUser(userWithData);

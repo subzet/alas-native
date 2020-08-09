@@ -7,6 +7,8 @@ export { default as HomeScreen } from './HomeScreen/HomeScreen'
 
 export { default as SettingsScreen } from './SettingsScreen/SettingsScreen'
 
+export { default as ProfileScreen } from './ProfileScreen/ProfileScreen'
+
 export { default as InvestmentScreen } from './InvestmentScreen/InvestmentScreen'
 
 export { default as SplashScreen } from './SplashScreen/SplashScreen'
@@ -18,3 +20,4 @@ export { default as PaymentAmount } from './PaymentAmount/PaymentAmount'
 export { default as PaymentStatus } from './PaymentStatus/PaymentStatus'
 
 export { default as PaymentConfirm } from './PaymentConfirm/PaymentConfirm'
+

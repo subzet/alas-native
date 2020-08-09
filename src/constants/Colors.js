@@ -12,5 +12,10 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
   backgroundMainColor: '#36A9E1',
-  backgroundSecondaryColor: 'white'
+  backgroundSecondaryColor: 'white',
+  mainTextColor:'#fff',
+  secondaryTextColor:'#ededed',
+  secondaryBackgroundColor:'#fff',
+  transactionBackgroundColor: '#F5F5F5',
+  notQuiteBlack:'#303030'
 };

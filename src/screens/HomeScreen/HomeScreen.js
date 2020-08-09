@@ -4,6 +4,7 @@ import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -29,10 +30,10 @@ export default function HomeScreen({navigation}) {
 
     const Icon = ({txType}) => {
         switch (txType){
-            case 'payment': return (<FontAwesome5 name="store" size={40} color="black" />)
-            case 'investment': return(<Entypo name="line-graph" size={40} color="black" />)
-            case 'money-sent': return (<FontAwesome5 name="money-bill-wave" size={40} color="black" />)
-            case 'bank-transfer': return (<MaterialCommunityIcons name="bank" size={40} color="black" />)
+            case 'payment': return (<FontAwesome5 name="store" size={40} color={Colors.notQuiteBlack} />)
+            case 'investment': return(<Entypo name="line-graph" size={40} color={Colors.notQuiteBlack} />)
+            case 'money-sent': return (<FontAwesome5 name="money-bill-wave" size={40} color={Colors.notQuiteBlack}/>)
+            case 'bank-transfer': return (<MaterialCommunityIcons name="bank" size={40} color={Colors.notQuiteBlack} />)
         }
     }
 

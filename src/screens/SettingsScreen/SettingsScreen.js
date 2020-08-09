@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {   Text,
     View,
     SafeAreaView,
     SectionList} from 'react-native'
 import styles from './styles';
+import { AuthContext } from '../../utils/authContext'
 import { firebase } from '../../firebase/config'
 
 
@@ -15,13 +16,14 @@ const Item = ({ item }) => (
 
 
 export default function SettingsScreen({navigation}) {
+    const user = useContext(AuthContext)
     const settingsTab = [
         {
             title:'Perfil',
             data:[
                 {
-                    title: 'username',
-                    action: function() { console.log('TODO') }
+                    title: user.userData.fullName,
+                    action: function() { navigation.navigate('Perfil')}
                 }
             ]
         },

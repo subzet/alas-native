@@ -22,21 +22,21 @@ export default StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Helvetica',
         fontWeight:'bold',
-        color: "#B3B3B3"
+        color: Colors.secondaryTextColor
     },
     statusBalanceLC: {
         paddingTop: '1%',
         fontSize: 40,
         fontFamily: 'Helvetica',
         fontWeight:'bold',
-        color: "white"
+        color: Colors.mainTextColor,
     },
     statusBalanceDAI: {
         paddingTop: '2%',
         fontSize: 18,
         fontFamily: 'Helvetica',
         fontWeight:'bold',
-        color: "#B3B3B3"
+        color: Colors.secondaryTextColor
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -52,13 +52,13 @@ export default StyleSheet.create({
         justifyContent:'center'
     },
     tabButtonText:{
-        color: 'white'
+        color: Colors.mainTextColor,
     },  
     sectionTitleContainer:{
         height: '10%',
         marginTop: '70%', //Change this according to cellphone
         position:'absolute',
-        backgroundColor: 'white',
+        backgroundColor: Colors.secondaryBackgroundColor,
         alignItems:'center',
         paddingTop:'3%',
         borderRadius: 30,
@@ -81,13 +81,13 @@ export default StyleSheet.create({
         flex: 6,
         paddingLeft:'5%',
         paddingRight:'5%',
-        color: 'black',
+        color: Colors.notQuiteBlack,
         backgroundColor: 'white',
     },
     transactionDate:{
         marginTop: '5%',
         marginBottom: '2.5%',
-        color:'#666666',
+        color: Colors.notQuiteBlack,
         fontFamily: 'Helvetica',
     },
     transaction:{
@@ -118,6 +118,7 @@ export default StyleSheet.create({
     },
     transactionDetail:{
         fontFamily: 'Helvetica',
+        color: Colors.notQuiteBlack,
     },
     transactionAmountContainer:{
         flex:.5,
