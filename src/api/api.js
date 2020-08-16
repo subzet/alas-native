@@ -90,23 +90,21 @@ const getUserInvestmentScreen = (user) => {
 }
 
 async function getDaiValue(token){
-    // let config = {
-    //     method: 'get',
-    //     url: baseUrl + '/price/daiars',
-    //     headers: {
-    //         'Authorization': getAuthorizationHeader(token)
-    //     }
-    // }
-    // try{
-    //     response = await axios(config)
-    //     console.log(`Retrieved DAI price: ${response.data.data.buy}`)
-    //     return response.data.data.buy
-    // }catch(error){
-    //     console.log(error.message)
-    //     return undefined
-    // }
-
-    return 130
+    let config = {
+        method: 'get',
+        url: baseUrl + '/price/daiars',
+        headers: {
+            'Authorization': getAuthorizationHeader(token)
+        }
+    }
+    try{
+        response = await axios(config)
+        console.log(`Retrieved DAI price: ${response.data.data.buy}`)
+        return response.data.data.buy
+    }catch(error){
+        console.log(error.message)
+        return undefined
+    }
 }
 
 const makePayment = (token,paymentData) => {
