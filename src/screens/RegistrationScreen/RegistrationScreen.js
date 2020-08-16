@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
-    const [nickName, setNickname] = useState('')
     const [email, setEmail] = useState('')
+    const [nickName, setNickname] = useState('')
     const [document, setDocument] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -17,12 +17,16 @@ export default function RegistrationScreen({navigation}) {
     }
 
     const onRegisterPress = () => {
-        if(validateInputs()){
+        if(password !== confirmPassword) {
+            alert("Las contraseñas no coinciden.")
+            return
+        }
         firebase
             .auth()
             .createUserWithEmailAndPassword(email,password) //Creates a new account.
             .then((response) => {
                 const uid = response.user.uid
+                firebase.firestore().collection('balance').doc(uid).set({lc:0,dai:0})
                 const data = {
                     id: uid,
                     email,
@@ -30,24 +34,24 @@ export default function RegistrationScreen({navigation}) {
                     nickName,
                     document
                 };
-                firebase.firestore().collection('users').doc(uid).set(data)
-                firebase.firestore().collection('balance').doc(uid).set(data) //Users data store. Neccesary to store user extra data.
-                firebase.auth().signOut()
+            
+            const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
+            userRef //Storing data as key: uid value: data.
+                .doc(uid)
+                .set(data)
+                .then(() => {   
+                    firebase.auth().signOut()     
+                    navigation.navigate('Login')
                 })
                 .catch((error) => {
                     alert(error)
                 });
-            navigation.navigate('Login') //Navigates to home with user info.
-        }
-    }
-
-    const validateInputs = () => {
-        if(password != confirmPassword){
-            alert("Las contraseñas no coinciden.")
-        }
-        if(document == '' || email == '' || fullName == '' || nickName == ''){
-            alert("Los campos son requeridos, por favor completalos.")
-        }
+            })
+            .catch((error) => {
+                alert(error)
+            });
+            
+            
     }
 
     return (
@@ -65,16 +69,6 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.label}>Apodo</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Ingrese su apodo.'
-                    placeholderTextColor="#666666"
-                    onChangeText={(text) => setNickname(text)}
-                    value={nickName}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
                 <Text style={styles.label}>E-Mail</Text>
                 <TextInput
                     style={styles.input}
@@ -82,6 +76,16 @@ export default function RegistrationScreen({navigation}) {
                     placeholderTextColor="#666666"
                     onChangeText={(text) => setEmail(text)}
                     value={email}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <Text style={styles.label}>Apodo</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Ingrese su apodo.'
+                    placeholderTextColor="#666666"
+                    onChangeText={(text) => setNickname(text)}
+                    value={nickName}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -95,7 +99,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.label}>Contraseña</Text>
+                <Text style={styles.label}>Password</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#666666"
@@ -106,7 +110,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.label}>Confirme su contraseña</Text>
+                <Text style={styles.label}>Confirme su password</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#666666"
@@ -117,7 +121,7 @@ export default function RegistrationScreen({navigation}) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Inicia sesión</Text></Text>
+                <Text style={styles.footerText}>Ya tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Log in</Text></Text>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>

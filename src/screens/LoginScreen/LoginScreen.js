@@ -9,18 +9,15 @@ export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    function onFooterLinkPress(){
-        console.log("press")
-        //navigation.navigate('Registration')
+    const onFooterLinkPress = () => {
+        navigation.navigate('Registration')
     }
 
     const onForgotPasswordLinkPress = () => {
-        console.log("press")
         console.log("TODO");
     }
 
     const onLoginPress = () => {
-        console.log("TODO");
         firebase
             .auth()
             .signInWithEmailAndPassword(email,password)
@@ -40,9 +37,6 @@ export default function LoginScreen({navigation}) {
                         alert(error)
                     })
             })
-            .catch(error => {
-                alert("Hubo un problema en el inicio de sesión, chequea tus credenciales.")
-            })
     }
 
     return (
@@ -50,42 +44,40 @@ export default function LoginScreen({navigation}) {
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">
-                <View style={styles.mainContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../../assets/alas_cuadrado_blanco-02-02-02.png')}
-                    />
-                    <Text style={styles.label}>E-mail</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Ingrese su e-mail.'
-                        placeholderTextColor="#666666"
-                        onChangeText={(text) => setEmail(text)}
-                        value={email}
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                    />
-                    <Text style={styles.label}>Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholderTextColor="#666666"
-                        secureTextEntry
-                        placeholder='Ingrese su password.'
-                        onChangeText={(text) => setPassword(text)}
-                        value={password}
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                    />
-                    <Text style={styles.footerText}>No tenés una cuenta?</Text><TouchableOpacity onPress={onFooterLinkPress}><Text  style={styles.footerText}>Registrate</Text></TouchableOpacity>
-                    <Text style={styles.footerText}><Text onPress={onForgotPasswordLinkPress} style={styles.footerLink}>Olvidé mi contraseña</Text></Text>
-                </View>
-                <View style={styles.footer}>
-                    <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => onLoginPress()}>
-                            <Text style={styles.buttonTitle}>Iniciar sesión</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image
+                    style={styles.logo}
+                    source={require('../../../assets/alas_cuadrado_blanco-02-02-02.png')}
+                />
+                <Text style={styles.label}>E-mail</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Ingrese su e-mail.'
+                    placeholderTextColor="#666666"
+                    onChangeText={(text) => setEmail(text)}
+                    value={email}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <Text style={styles.label}>Password</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholderTextColor="#666666"
+                    secureTextEntry
+                    placeholder='Ingrese su password.'
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <Text style={styles.footerText}>No tenés una cuenta? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Registrate</Text></Text>
+                <Text style={styles.footerText}><Text onPress={onForgotPasswordLinkPress} style={styles.footerLink}>Olvidé mi contraseña</Text></Text>
+                 
+                <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => onLoginPress()}>
+                        <Text style={styles.buttonTitle}>Iniciar sesión</Text>
+                </TouchableOpacity>
+
             </KeyboardAwareScrollView>
         </View>
     )

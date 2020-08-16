@@ -73,7 +73,7 @@ export default function PaymentAmount({navigation,route}) {
                         style={styles.button}
                         onPress={onContinuePress}>
                         <Text style={styles.buttonTitle}>Continuar</Text>
-                </AnimatedTouchable>
+            </AnimatedTouchable>
             </KeyboardAwareScrollView>
         </View>
     )
