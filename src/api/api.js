@@ -1,16 +1,14 @@
-const axios = require('axios').default;
+const axios = require('axios');
 
-const baseUrl = 'localhost:8080' 
+const baseUrl = 'https://alas-backend.herokuapp.com'
 
-const login = (email,password )  => {
-
+const getAuthorizationHeader = (token) => {
+    return `Bearer ${token}`
 }
 
-const register = (userdata) => {
-    
-}
 
-export const getUserMainScreen = (user) => {
+
+const getUserMainScreen = (user) => {
     return {
         username: 'mponsa',
         balanceLC: 50123.12,
@@ -56,11 +54,11 @@ export const getUserMainScreen = (user) => {
                 date: '2020-07-23T02:38:55+00:00',
                 type: 'investment',
                 typeDesc: 'Inversión',
-                amountLC: 5505,
-                amountDAI: 39.29,
+                amountLC: 1300,
+                amountDAI: 10.076524,
                 userLC: 'ARS',
                 extra:{
-                    to: 'UADE'
+                    to: 'compound'
                 }
             }
         ] 
@@ -69,7 +67,7 @@ export const getUserMainScreen = (user) => {
 }
 
 
-export const getUserInvestmentScreen = (user) => {
+const getUserInvestmentScreen = (user) => {
     return {
         username: 'mponsa',
         balanceLC: 1300.12,
@@ -90,3 +88,45 @@ export const getUserInvestmentScreen = (user) => {
 
     }
 }
+
+async function getDaiValue(token){
+    let config = {
+        method: 'get',
+        url: baseUrl + '/price/daiars',
+        headers: {
+            'Authorization': getAuthorizationHeader(token)
+        }
+    }
+    try{
+        response = await axios(config)
+        console.log(`Retrieved DAI price: ${response.data.data.buy}`)
+        return response.data.data.buy
+    }catch(error){
+        console.log(error.message)
+        return undefined
+    }
+}
+
+const makePayment = (token,paymentData) => {
+    
+    const config = {
+        method: 'post',
+        url: baseUrl + '/transactions',
+        headers: {
+            'Authorization': getAuthorizationHeader(token)
+        },
+        data:paymentData
+    }
+    
+    
+    axios(config).then(response =>{
+        console.log(response)
+    })
+    
+    return {
+        msg: "",
+        code: 200
+    }
+}
+
+module.exports = { getDaiValue,getUserMainScreen,getUserInvestmentScreen,makePayment }

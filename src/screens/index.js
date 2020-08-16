@@ -5,6 +5,8 @@ export { default as RegistrationScreen } from './RegistrationScreen/Registration
 
 export { default as HomeScreen } from './HomeScreen/HomeScreen'
 
+export { default as DetailScreen } from './DetailScreen/DetailScreen'
+
 export { default as SettingsScreen } from './SettingsScreen/SettingsScreen'
 
 export { default as ProfileScreen } from './ProfileScreen/ProfileScreen'

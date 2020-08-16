@@ -5,10 +5,14 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.backgroundMainColor,
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: 'column'
     },
-    title: {
-
+    mainContainer: {
+        flex: 9
+    },
+    footer:{
+        flex: 1
     },
     logo: {
         flex: 1,

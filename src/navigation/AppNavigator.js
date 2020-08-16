@@ -8,8 +8,6 @@ import { getUserMainScreen, getUserInvestmentScreen } from '../api/api'
 
 const AuthNavigator = createStackNavigator();
 
-
-
 export default function AuthStack(){
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -17,22 +15,31 @@ export default function AuthStack(){
 
     // Handle user state changes
   function onAuthStateChanged(user) {
-    if(user != null){
-      firebase.firestore().collection('users').doc(user.uid).get().then(
-        userDoc => { 
-          const userWithData = {
-            userData : userDoc.data(),
-            userHome : getUserMainScreen(user.uid),
-            userInvestment : getUserInvestmentScreen(user.uid),
-            userAuth : user 
-          }
-          setUser(userWithData);
-        });
-    } else{
-      setUser(user); 
-    }
+    // console.log("hola")
+    // let token = ''
+    // if(user != null){
+    //   user.getIdToken().then(idToken => {
+    //     token = idToken
+    //   })
+
+    //   firebase.firestore().collection('users').doc(user.uid).get().then(
+    //     userDoc => { 
+    //       const userWithData = {
+    //         userData : userDoc.data(),
+    //         userHome : getUserMainScreen(user.uid),
+    //         userInvestment : getUserInvestmentScreen(user.uid),
+    //         userAuth : user,
+    //         token: token 
+    //       }
+    //       console.log(`Retrieved token ${token}`)
+    //       setUser(userWithData);
+    //     });
+    // } else{
+    //   console.log("que tal")
+    //   setUser(user); 
+    // }
     
-    if (initializing) setInitializing(false);
+    // if (initializing) setInitializing(false);
   }
 
   useEffect(() => {

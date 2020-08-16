@@ -24,8 +24,10 @@ export default function HomeScreen({navigation}) {
         navigation.navigate('Pagar')
     }
 
-    const viewTransactionDetail = () => {
-        console.log('todo');
+    const viewTransactionDetail = (transaction) => {
+        navigation.navigate('Detalle',{
+            tx: transaction
+        })
     }
 
     const Icon = ({txType}) => {
@@ -44,7 +46,7 @@ export default function HomeScreen({navigation}) {
                 return(
                     <>
                     <Text style={styles.transactionDate}>{(new Date(transaction.date)).toLocaleDateString('es-ES',formatDateOptions)}</Text>
-                    <TouchableOpacity style={styles.transaction} onPress={viewTransactionDetail}>
+                    <TouchableOpacity style={styles.transaction} onPress={() => viewTransactionDetail(transaction)}>
                         <View style={styles.transactionImageContainer}><Icon txType={transaction.type}/></View>
                         <View style={styles.transactionDetailContainer}>
                             <View style={styles.transactionType}><Text styles={styles.transactionDetail}>{transaction.typeDesc}</Text></View>

@@ -10,18 +10,11 @@ import { useGestureHandlerRef } from 'react-navigation-stack';
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function ProfileScreen({navigation}) {
-    const [dataScreen, setDataScreen] = useState(true)
-    const [bankDataScreen, setBankDataScreen] = useState(false)
     const user = useContext(AuthContext)
 
     const goToData = () => {
         setDataScreen(true)
         setBankDataScreen(false)
-    }
-
-    const goToBank = () => {
-        setDataScreen(false)
-        setBankDataScreen(true)
     }
             
     return (
@@ -34,10 +27,9 @@ export default function ProfileScreen({navigation}) {
                     <Text style={styles.statusNickname}>{'@' + user.userData.nickName}</Text>
                 </View>
                 <View style={styles.sectionTitleContainer}>
-                    <TouchableOpacity onPress={goToData}><Text style={styles.sectionTitleText}>Datos</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={goToBank}><Text style={styles.sectionTitleText}>Cuentas Bancarias</Text></TouchableOpacity>
+                    <Text style={styles.sectionTitleText}>Datos personales</Text>
                 </View>
-                <View style={dataScreen ? styles.sectionDataTitleUnderline : styles.sectionBankTitleUnderline }/>
+                <View style={styles.sectionTitleUnderline}/>
             </View>
             <View style={styles.transactionContainer}>
                 <ScrollView>

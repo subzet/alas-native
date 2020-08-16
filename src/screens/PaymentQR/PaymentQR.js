@@ -17,11 +17,19 @@ export default function PaymentQR({navigation}) {
         }
     
     const handleBarCodeScanned = ({type, data}) => {
+        try{
+            let qrData = JSON.parse(data)
             setScanned(true)
             if(data){
-                navigation.navigate('PaymentAmount')
+                navigation.navigate('Ingresar Monto',{
+                    qrData: qrData
+                })
             }
-        }
+        }catch(error){
+            alert("No es un código válido!")
+        } 
+ 
+    }
     
     useEffect(() => {
             getPermissionsAsync()

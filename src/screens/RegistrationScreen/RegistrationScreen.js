@@ -30,21 +30,14 @@ export default function RegistrationScreen({navigation}) {
                     nickName,
                     document
                 };
-                const userRef = firebase.firestore().collection('users') //Users data store. Neccesary to store user extra data.
-                userRef //Storing data as key: uid value: data.
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        firebase.auth().signOut()
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
+                firebase.firestore().collection('users').doc(uid).set(data)
+                firebase.firestore().collection('balance').doc(uid).set(data) //Users data store. Neccesary to store user extra data.
+                firebase.auth().signOut()
                 })
                 .catch((error) => {
                     alert(error)
                 });
-        navigation.navigate('Login') //Navigates to home with user info.
+            navigation.navigate('Login') //Navigates to home with user info.
         }
     }
 

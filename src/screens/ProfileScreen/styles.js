@@ -58,17 +58,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 2
     },
-    sectionDataTitleUnderline: {
+    sectionTitleUnderline: {
             borderBottomColor: Colors.backgroundMainColor,
             borderBottomWidth: 2,
-            width: '11%',
-            marginLeft: '17%'
-    },
-    sectionBankTitleUnderline: {
-        borderBottomColor: Colors.backgroundMainColor,
-        borderBottomWidth: 2,
-        width: '40.5%',
-        marginLeft: '42%'
+            width: '38%',
+            marginLeft: '31%'
     },
     transactionContainer: {
         flex: 14,
