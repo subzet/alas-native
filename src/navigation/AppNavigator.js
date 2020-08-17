@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen, RegistrationScreen, SplashScreen } from '../screens/';
 import { firebase } from '../firebase/config'
@@ -13,26 +13,37 @@ export default function AuthStack(){
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
-    // Handle user state changes
+  const setCurrentUserData = useCallback((currentUser) => {
+    console.log('Updating user data!!')
+    setUser(currentUser);
+  },[]);
+ 
+  // Handle user state changes  
   function onAuthStateChanged(user) {
-    let token = ''
+    let userWithData = {}
+    
     if(user != null){
-      user.getIdToken().then(idToken => {
-        token = idToken
-      })
-
-      firebase.firestore().collection('users').doc(user.uid).get().then(
-        userDoc => { 
-          const userWithData = {
-            userData : userDoc.data(),
-            userHome : getUserMainScreen(user.uid),
-            userInvestment : getUserInvestmentScreen(user.uid),
-            userAuth : user,
-            token: token 
-          }
-          console.log(`Retrieved token ${token}`)
-          setUser(userWithData);
-        });
+      user.getIdToken().then(
+        idToken => {
+          userWithData.token = idToken;
+          userWithData.userAuth = user; 
+          console.log(`Retrieved token from get Token${userWithData.token}`)
+          
+          //Get user DATA.
+          firebase.firestore().collection('users').doc(user.uid).get().then(
+            userDoc => {
+              userWithData.userData = userDoc.data()
+            
+              //Get user Main Screen Data.
+              getUserMainScreen(userWithData.token).then(
+              (response) => {
+                    userWithData.userHome = response;
+                    userWithData.userInvestment = getUserInvestmentScreen(userWithData.token)
+                    //Set user in state.
+                    setUser(userWithData);
+              });
+          });
+      });
     } else{
       setUser(user); 
     }
@@ -55,10 +66,10 @@ export default function AuthStack(){
   return (
 
         user ? (
-          <AuthContext.Provider value={user}>
-            <AuthNavigator.Navigator screenOptions={{headerShown: false}}>
-              <AuthNavigator.Screen name="Home" component={MainTabNavigator}/>
-            </AuthNavigator.Navigator>
+          <AuthContext.Provider value={{user, setCurrentUserData}}>
+              <AuthNavigator.Navigator screenOptions={{headerShown: false}}>
+                <AuthNavigator.Screen name="Home" component={MainTabNavigator}/>
+              </AuthNavigator.Navigator>
           </AuthContext.Provider>
         ) : (
           <>

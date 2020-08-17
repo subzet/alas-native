@@ -16,7 +16,7 @@ const Item = ({ item }) => (
 
 
 export default function SettingsScreen({navigation}) {
-    const user = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     const settingsTab = [
         {
             title:'Perfil',

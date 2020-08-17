@@ -3,6 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import { assignEthWallet } from '../../api/api'
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
@@ -25,7 +26,14 @@ export default function RegistrationScreen({navigation}) {
             .auth()
             .createUserWithEmailAndPassword(email,password) //Creates a new account.
             .then((response) => {
+                firebase.auth().currentUser.getIdToken().then(
+                    token => {
+                        console.log(`Retrieved token for created user : ${token}`)
+                        assignEthWallet(token)
+                    }
+                )
                 const uid = response.user.uid
+                //Move to backend.
                 firebase.firestore().collection('balance').doc(uid).set({lc:0,dai:0})
                 const data = {
                     id: uid,

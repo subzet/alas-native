@@ -9,7 +9,7 @@ import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons'
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function InvestmentScreen({navigation}) {
-    const user = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     
 
     const Icon = ({protocol}) => {

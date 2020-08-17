@@ -2,14 +2,24 @@ import React, { useContext } from 'react'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
+import {getUserMainScreen} from '../../api/api'
+
 
 export default function PaymentStatus({route, navigation}) {
     const { data } = route.params
     const { response } = route.params
-    const user = useContext(AuthContext)
+    const { user, setCurrentUserData } = useContext(AuthContext)
 
-    const onGoBackPress = () => {
-        navigation.navigate('Home');
+    async function onGoBackPress(){
+        getUserMainScreen(user.token).then(
+            response => {
+                user.userHome = response
+                //Update user!
+                console.log(setCurrentUserData)
+                setCurrentUserData(user)
+                navigation.navigate('Home');
+            }
+        )
     }
 
     const onTryAgainPress = () => {

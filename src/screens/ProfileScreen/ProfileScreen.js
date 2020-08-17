@@ -10,7 +10,7 @@ import { useGestureHandlerRef } from 'react-navigation-stack';
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function ProfileScreen({navigation}) {
-    const user = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
 
     const goToData = () => {
         setDataScreen(true)

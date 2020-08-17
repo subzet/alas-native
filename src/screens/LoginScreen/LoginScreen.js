@@ -46,7 +46,7 @@ export default function LoginScreen({navigation}) {
                 keyboardShouldPersistTaps="always">
                 <Image
                     style={styles.logo}
-                    source={require('../../../assets/alas_cuadrado_blanco-02-02-02.png')}
+                    source={require('../../../assets/alas_opt_mobile-blanco.png')}
                 />
                 <Text style={styles.label}>E-mail</Text>
                 <TextInput

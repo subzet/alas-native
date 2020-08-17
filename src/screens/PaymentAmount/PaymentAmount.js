@@ -7,7 +7,7 @@ import { getDaiValue } from '../../api/api';
 
 
 export default function PaymentAmount({navigation,route}) {
-    const user = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
     const [amount, setAmount] = useState('')
     
     // const qrData = {
@@ -30,7 +30,7 @@ export default function PaymentAmount({navigation,route}) {
             navigation.navigate('Confirmar', {
                 data:{
                     amountLC: amountConverted,
-                    amountDAI: amountDai.toFixed(3),
+                    amountDAI: amountDai,
                     qrData: qrData
                 }
             })

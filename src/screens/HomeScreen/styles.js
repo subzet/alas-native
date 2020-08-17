@@ -113,7 +113,6 @@ export default StyleSheet.create({
     },
     transactionType:{
         flex: .5,
-        alignItems: 'center',
         justifyContent: 'center'
     },
     transactionDetail:{
