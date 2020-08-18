@@ -55,7 +55,7 @@ export default function HomeScreen({navigation}) {
                         <View style={styles.transactionDetailContainer}>
                             <View style={styles.transactionType}><Text styles={styles.transactionDetail}>{transaction.typeDesc}</Text></View>
                             <View style={styles.transactionAmountContainer}>
-                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{transaction.userLC + transaction.amountLC < 0 ? '- $' + (-transaction.amountLC) : ' $' + transaction.amountLC }</Text></View>
+                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{transaction.amountLC < 0 ? transaction.userLC + ' -$' + (-transaction.amountLC) : transaction.userLC + ' $' + transaction.amountLC }</Text></View>
                                 <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{'DAI' + ' ' + transformDai(transaction.amountDAI) }</Text></View>
                             </View>
                         </View>
