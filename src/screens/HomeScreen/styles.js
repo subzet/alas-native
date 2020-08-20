@@ -112,7 +112,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     transactionType:{
-        flex: .5,
+        flex: 1,
         justifyContent: 'center'
     },
     transactionDetail:{
@@ -126,7 +126,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     transactionAmount:{
-        flex: .5,
+        flex: 1,
         alignItems: 'center'
     },
     input: {

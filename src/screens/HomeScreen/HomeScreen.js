@@ -52,13 +52,8 @@ export default function HomeScreen({navigation}) {
                     <Text style={styles.transactionDate}>{(new Date(transaction.timestamp)).toLocaleDateString('es-ES',formatDateOptions)}</Text>
                     <TouchableOpacity style={styles.transaction} onPress={() => viewTransactionDetail(transaction)}>
                         <View style={styles.transactionImageContainer}><Icon txType={transaction.type}/></View>
-                        <View style={styles.transactionDetailContainer}>
-                            <View style={styles.transactionType}><Text styles={styles.transactionDetail}>{transaction.typeDesc}</Text></View>
-                            <View style={styles.transactionAmountContainer}>
-                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{transaction.amountLC < 0 ? transaction.userLC + ' -$' + (-transaction.amountLC) : transaction.userLC + ' $' + transaction.amountLC }</Text></View>
-                                <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{'DAI' + ' ' + transformDai(transaction.amountDAI) }</Text></View>
-                            </View>
-                        </View>
+                        <View style={styles.transactionType}><Text styles={styles.transactionDetail}>{transaction.type == 'payment' ? transaction.typeDesc + ' a ' + transaction.extra.to : transaction.typeDesc }</Text></View>
+                        <View style={styles.transactionAmount}><Text styles={styles.transactionDetail}>{transaction.amountLC < 0 ? transaction.userLC + ' -$' + (-transaction.amountLC) : transaction.userLC + ' $' + transaction.amountLC }</Text></View>
                     </TouchableOpacity>
                     </>
                 )
