@@ -13,10 +13,10 @@ export default function PaymentStatus({route, navigation}) {
     async function onGoBackPress(){
         getUserMainScreen(user.token).then(
             response => {
-                user.userHome = response
+                let newUser = user
+                newUser.userHome = response
                 //Update user!
-                console.log(setCurrentUserData)
-                setCurrentUserData(user)
+                setCurrentUserData(newUser)
                 navigation.navigate('Home');
             }
         )

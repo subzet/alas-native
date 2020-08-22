@@ -1,16 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Text, View, SafeAreaView } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import { useFocusEffect } from '@react-navigation/core';
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function HomeScreen({navigation}) {
     const { user } = useContext(AuthContext)
+    const [userHome, setUserHome] = useState(user.userHome)
+
+    useEffect(() => {
+        if(user){
+            console.log("Se llamo al use Effect.. seteando user Data from context.")
+            setUserHome(user.userHome)
+        }
+    },[Object.keys(user).map(key => user[key])])
+
 
     const sendMoneyETH = () => {
         console.log('todo');
@@ -59,19 +69,14 @@ export default function HomeScreen({navigation}) {
                 )
             })
     );
-            
 
-                return(
-                <AuthContext.Consumer>
-                    {value => 
-                    {
                         return(
                             <View style={styles.container}>
                                         <View style={styles.statusContainer}>
                                             <View style={styles.statusBarContainer}>
                                                 <Text style={styles.statusNickname}>{'@' + user.userHome.username}</Text>
-                                                <Text style={styles.statusBalanceLC}>{user.userHome.userLC +' $'+ user.userHome.balanceLC}</Text>
-                                                <Text style={styles.statusBalanceDAI}>{ transformDai(value.user.userHome.balanceDAI) + ' DAI'}</Text>
+                                                <Text style={styles.statusBalanceLC}>{userHome.userLC +' $'+ userHome.balanceLC}</Text>
+                                                <Text style={styles.statusBalanceDAI}>{ transformDai(userHome.balanceDAI) + ' DAI'}</Text>
                                                 <View style={styles.buttonContainer}>
                                                     <TouchableOpacity style={styles.tabButton} onPress={sendMoneyETH}><Text style={styles.tabButtonText}>Enviar</Text></TouchableOpacity>
                                                     <TouchableOpacity style={styles.tabButton} onPress={investMoneyETH}><Text style={styles.tabButtonText}>Invertir</Text></TouchableOpacity>
@@ -85,13 +90,10 @@ export default function HomeScreen({navigation}) {
                                         </View>
                                         <View style={styles.transactionContainer}>
                                             <ScrollView>
-                                            <Transactions transactions={value.user.userHome.movements}/>
+                                            <Transactions transactions={userHome.movements}/>
                                             </ScrollView>
                                         </View>
                             </View>
                         )
-                    }
-                    }
-                </AuthContext.Consumer>
-    )
+
 }

@@ -12,11 +12,18 @@ export default function AuthStack(){
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const setCurrentUserData = (currentUser) => {
+    console.log("Updating..")
+    setUser(currentUser)
+    console.log(`User balance: ${user.userHome.balanceLC}`)
+  }
 
-  const setCurrentUserData = useCallback((currentUser) => {
-    console.log('Updating user data!!')
-    setUser(currentUser);
-  },[]);
+  // const setCurrentUserData = useCallback((currentUser, setNewData) => {
+  //    console.log(user.userHome.balanceLC)
+  //    console.log('Updating user data!!')
+  //    setNewData(currentUser);
+  //    console.log(user.userHome.balanceLC) 
+  //  },[]);
  
   // Handle user state changes  
   function onAuthStateChanged(user) {

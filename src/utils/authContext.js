@@ -1,5 +1,6 @@
-import React, { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
 
 export const AuthContext = createContext({
-    setUserContent: userContent => {}
+    user:{},
+    setCurrentUserData: () => {}
 });
