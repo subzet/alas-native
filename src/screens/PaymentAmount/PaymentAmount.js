@@ -7,7 +7,7 @@ import { getDaiValue } from '../../api/api';
 
 
 export default function PaymentAmount({navigation,route}) {
-    const {user} = useContext(AuthContext)
+    const {userAuth, userData} = useContext(AuthContext)
     const [amount, setAmount] = useState('')
     
     // const qrData = {
@@ -24,7 +24,7 @@ export default function PaymentAmount({navigation,route}) {
 
    async function onContinuePress(){
         let amountConverted = validateAmount()
-        let convertRate = await getDaiValue(user.token)
+        let convertRate = await getDaiValue(userAuth.token)
         let amountDai = amountConverted / convertRate
         if(amountConverted > 0){
             navigation.navigate('Confirmar', {
@@ -68,7 +68,7 @@ export default function PaymentAmount({navigation,route}) {
                 </View>
                 <View style={styles.sectionTitleUnderline}/>
             </View>
-            <Text style={styles.paymentWording}>Ingresa el monto de pago en {user.userHome.userLC}</Text>
+            <Text style={styles.paymentWording}>Ingresa el monto de pago en {userData.userHome.userLC}</Text>
             <AnimatedTouchable
                         style={styles.button}
                         onPress={onContinuePress}>

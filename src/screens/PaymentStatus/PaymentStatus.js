@@ -8,12 +8,12 @@ import {getUserMainScreen} from '../../api/api'
 export default function PaymentStatus({route, navigation}) {
     const { data } = route.params
     const { response } = route.params
-    const { user, setCurrentUserData } = useContext(AuthContext)
+    const { userAuth, userData, setCurrentUserData } = useContext(AuthContext)
 
     async function onGoBackPress(){
-        getUserMainScreen(user.token).then(
+        getUserMainScreen(userAuth.token).then(
             response => {
-                let newUser = user
+                let newUser = userData
                 newUser.userHome = response
                 //Update user!
                 setCurrentUserData(newUser)
@@ -43,7 +43,7 @@ export default function PaymentStatus({route, navigation}) {
             return(
             <>
                 <Text style={styles.mainWording}>¡Listo! Pagaste a {data.qrData.shop}:</Text>
-                <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                <Text style={styles.mainWording}>{userData.userHome.userLC + ' $' + data.amountLC}</Text>
                 <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta</Text>
             </>
             )

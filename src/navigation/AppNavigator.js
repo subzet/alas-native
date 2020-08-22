@@ -11,11 +11,13 @@ const AuthNavigator = createStackNavigator();
 export default function AuthStack(){
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [userAuth, setUserAuth] = useState();
+  
+  const [userData, setUserData] = useState();
   const setCurrentUserData = (currentUser) => {
     console.log("Updating..")
-    setUser(currentUser)
-    console.log(`User balance: ${user.userHome.balanceLC}`)
+    setUserData(currentUser)
+    console.log(`User balance: ${userData.userHome.balanceLC}`)
   }
 
   // const setCurrentUserData = useCallback((currentUser, setNewData) => {
@@ -27,42 +29,50 @@ export default function AuthStack(){
  
   // Handle user state changes  
   function onAuthStateChanged(user) {
-    let userWithData = {}
-    
+    let userWithAuthData = {}
     if(user != null){
       user.getIdToken().then(
         idToken => {
-          userWithData.token = idToken;
-          userWithData.userAuth = user; 
-          console.log(`Retrieved token from get Token${userWithData.token}`)
-          
-          //Get user DATA.
+          userWithAuthData.token = idToken;
+          console.log(`Retrieved token from get Token: ${userWithAuthData.token}`)
+
+           //Sets userAuth.
+          let userAppData = {}
+          //Retrieves user info for the first time.
           firebase.firestore().collection('users').doc(user.uid).get().then(
-            userDoc => {
-              userWithData.userData = userDoc.data()
-            
+          userDoc => {
+              userAppData.userData = userDoc.data()
+                      
               //Get user Main Screen Data.
-              getUserMainScreen(userWithData.token).then(
+              getUserMainScreen(userWithAuthData.token).then(
               (response) => {
-                    userWithData.userHome = response;
-                    userWithData.userInvestment = getUserInvestmentScreen(userWithData.token)
-                    //Set user in state.
-                    setUser(userWithData);
-              });
-          });
+                  userAppData.userHome = response;
+                  userAppData.userInvestment = getUserInvestmentScreen(userWithAuthData.token)
+                  //Set user in state.
+                  setUserData(userAppData);
+                  setUserAuth(userWithAuthData)
+                });
+            });
       });
+
     } else{
-      setUser(user); 
+      setUserAuth(user); 
     }
     
     if (initializing) setInitializing(false);
   }
+
+  
 
   useEffect(() => {
     const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
 
+  //Re-renders when userData changes.
+  useEffect(() => {
+    console.log("User data changed, talking from useEffect ;B")
+  },[setUserData])
 
   if (initializing) {	
     return (	
@@ -72,8 +82,8 @@ export default function AuthStack(){
 
   return (
 
-        user ? (
-          <AuthContext.Provider value={{user, setCurrentUserData}}>
+        userAuth ? (
+          <AuthContext.Provider value={{userAuth, userData, setCurrentUserData}}>
               <AuthNavigator.Navigator screenOptions={{headerShown: false}}>
                 <AuthNavigator.Screen name="Home" component={MainTabNavigator}/>
               </AuthNavigator.Navigator>

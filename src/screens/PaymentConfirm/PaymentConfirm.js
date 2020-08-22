@@ -6,14 +6,14 @@ import { makePayment } from '../../api/api';
 
 
 export default function PaymentConfirm({route, navigation}) {
-    const {user} = useContext(AuthContext)
+    const {userAuth, userData} = useContext(AuthContext)
 
     const { data } = route.params
 
     async function onContinuePress(){
         console.log('todo')
         let payment = formatPaymentData(data)
-        let response = await makePayment(user.token, payment)
+        let response = await makePayment(userAuth.token, payment)
         navigation.navigate('Estado', {
                 data,
                 response
@@ -43,7 +43,7 @@ export default function PaymentConfirm({route, navigation}) {
         <View style={styles.container}>
             <View style={styles.textContainer}>
                 <Text style={styles.mainText}> Vas a pagar: </Text>
-                <Text style={styles.mainAmount}>{user.userHome.userLC + ' $' + data.amountLC} a {data.qrData.shop.toUpperCase()}</Text>
+                <Text style={styles.mainAmount}>{userData.userHome.userLC + ' $' + data.amountLC} a {data.qrData.shop.toUpperCase()}</Text>
                 <Text style={styles.secondaryAmount}>Se debitaran {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta</Text>
             </View>
             <View style={styles.buttonContainer}>
