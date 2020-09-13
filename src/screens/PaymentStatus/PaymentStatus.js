@@ -1,22 +1,24 @@
 import React, { useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
 import {getUserMainScreen} from '../../api/api'
+import { refreshmain } from '../../redux/alasApp'
 
 
 export default function PaymentStatus({route, navigation}) {
     const { data } = route.params
     const { response } = route.params
     const { user, setCurrentUserData } = useContext(AuthContext)
+    const distpatch = useDispatch()
+
+    const refreshMainScreen = data => distpatch(refreshmain(data))
 
     async function onGoBackPress(){
         getUserMainScreen(user.token).then(
             response => {
-                user.userHome = response
-                //Update user!
-                console.log(setCurrentUserData)
-                setCurrentUserData(user)
+                refreshMainScreen(response)
                 navigation.navigate('Home');
             }
         )

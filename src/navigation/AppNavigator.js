@@ -5,6 +5,8 @@ import { firebase } from '../firebase/config'
 import MainTabNavigator from './MainTabNavigator';
 import { AuthContext } from '../utils/authContext'
 import { getUserMainScreen, getUserInvestmentScreen } from '../api/api'
+import { useDispatch } from 'react-redux'
+import { refreshmain } from '../redux/alasApp'
 
 const AuthNavigator = createStackNavigator();
 
@@ -12,6 +14,9 @@ export default function AuthStack(){
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const distpatch = useDispatch()
+
+  const refreshMainScreen = token => distpatch(refreshmain(token))
 
   const setCurrentUserData = useCallback((currentUser) => {
     console.log('Updating user data!!')
@@ -33,13 +38,13 @@ export default function AuthStack(){
           firebase.firestore().collection('users').doc(user.uid).get().then(
             userDoc => {
               userWithData.userData = userDoc.data()
-            
               //Get user Main Screen Data.
               getUserMainScreen(userWithData.token).then(
               (response) => {
                     userWithData.userHome = response;
                     userWithData.userInvestment = getUserInvestmentScreen(userWithData.token)
                     //Set user in state.
+                    refreshMainScreen(response)
                     setUser(userWithData);
               });
           });
