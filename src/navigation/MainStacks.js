@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen, InvestmentScreen, SettingsScreen, ProfileScreen, DetailScreen } from '../screens';
 import { PaymentStackNavigator } from './PaymentStack'
+import { InvestmentFlowStackNavigator } from './InvestmentStack'
 import Colors from '../constants/Colors';
 
 const HomeStack = createStackNavigator();
@@ -11,6 +12,7 @@ export function HomeStackNavigator(){
     <HomeStack.Navigator>
       <HomeStack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <HomeStack.Screen name='Pagar' component={PaymentStackNavigator}/>
+      <HomeStack.Screen name='Invertir' component={InvestmentFlowStackNavigator}/>
       <HomeStack.Screen name='Detalle' component={DetailScreen}/>
     </HomeStack.Navigator>
   )

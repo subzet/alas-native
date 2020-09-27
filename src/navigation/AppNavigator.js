@@ -6,7 +6,7 @@ import MainTabNavigator from './MainTabNavigator';
 import { AuthContext } from '../utils/authContext'
 import { getUserMainScreen, getUserInvestmentScreen } from '../api/api'
 import { useDispatch } from 'react-redux'
-import { refreshmain } from '../redux/alasApp'
+import { refreshmain, refreshinvestment } from '../redux/alasApp'
 
 const AuthNavigator = createStackNavigator();
 
@@ -16,7 +16,9 @@ export default function AuthStack(){
   const [user, setUser] = useState();
   const distpatch = useDispatch()
 
-  const refreshMainScreen = token => distpatch(refreshmain(token))
+  const refreshMainScreen = data => distpatch(refreshmain(data))
+
+  const refreshInvestmentScreen = data => distpatch(refreshinvestment(data))
 
   const setCurrentUserData = useCallback((currentUser) => {
     console.log('Updating user data!!')
@@ -42,11 +44,17 @@ export default function AuthStack(){
               getUserMainScreen(userWithData.token).then(
               (response) => {
                     userWithData.userHome = response;
-                    userWithData.userInvestment = getUserInvestmentScreen(userWithData.token)
-                    //Set user in state.
-                    refreshMainScreen(response)
-                    setUser(userWithData);
               });
+
+              getUserInvestmentScreen(userWithData.token).then(
+                (response) => {
+                  userWithData.userInvestment = response;
+                  //Set user in state.
+                  refreshMainScreen(userWithData.userHome)
+                  refreshInvestmentScreen(userWithData.userInvestment)
+                  setUser(userWithData);
+              });
+
           });
       });
     } else{

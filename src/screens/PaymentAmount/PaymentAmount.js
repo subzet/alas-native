@@ -20,6 +20,19 @@ export default function PaymentAmount({navigation,route}) {
 
     const { qrData } = route.params
 
+    const { investData } = route.params
+
+    const { sendData } = route.params
+
+
+    const Wording = () => {
+        if(qrData){
+            return <Text style={styles.paymentWording}>Ingresa el monto de pago en {user.userHome.userLC}</Text>
+        }
+        if(investData){
+            return <Text style={styles.paymentWording}>Ingresa el monto de inversión en {user.userHome.userLC}</Text>
+        }
+    }
 
 
    async function onContinuePress(){
@@ -31,7 +44,9 @@ export default function PaymentAmount({navigation,route}) {
                 data:{
                     amountLC: amountConverted,
                     amountDAI: amountDai,
-                    qrData: qrData
+                    qrData: qrData,
+                    investData: investData,
+                    sendData: sendData
                 }
             })
         }
@@ -68,7 +83,7 @@ export default function PaymentAmount({navigation,route}) {
                 </View>
                 <View style={styles.sectionTitleUnderline}/>
             </View>
-            <Text style={styles.paymentWording}>Ingresa el monto de pago en {user.userHome.userLC}</Text>
+            <Wording/>
             <AnimatedTouchable
                         style={styles.button}
                         onPress={onContinuePress}>

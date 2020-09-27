@@ -13,6 +13,8 @@ export { default as ProfileScreen } from './ProfileScreen/ProfileScreen'
 
 export { default as InvestmentScreen } from './InvestmentScreen/InvestmentScreen'
 
+export { default as InvestmentProvidersScreen } from './InvestmentProvidersScreen/InvestmentProvidersScreen'
+
 export { default as SplashScreen } from './SplashScreen/SplashScreen'
 
 export { default as PaymentQR } from './PaymentQR/PaymentQR'

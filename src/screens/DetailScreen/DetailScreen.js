@@ -4,7 +4,7 @@ import { Text, View, ScrollView,SafeAreaView, Linking } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -21,10 +21,12 @@ export default function DetailScreen({route, navigation}) {
     const Icon = ({txType}) => {
         switch (txType){
             case 'payment': return (<FontAwesome5 name="store" size={40} color={Colors.notQuiteBlack} />)
+            case 'money-transfer': return(<MaterialCommunityIcons name="bank" size={40} color={Colors.notQuiteBlack} />)
             case 'investment': return(<Entypo name="line-graph" size={40} color={Colors.notQuiteBlack} />)
             case 'money-sent': return (<FontAwesome5 name="money-bill-wave" size={40} color={Colors.notQuiteBlack}/>)
             case 'bank-transfer': return (<MaterialCommunityIcons name="bank" size={40} color={Colors.notQuiteBlack} />)
-            case 'money-transfer': return (<MaterialCommunityIcons name="bank" size={40} color={Colors.notQuiteBlack} />)
+            case 'withdraw-from-investment': return(<MaterialIcons name="attach-money" size={40} color={Colors.notQuiteBlack} />)
+            case 'withdraw': return(<FontAwesome5 name="money-check" size={40} color={Colors.notQuiteBlack} />)
         }
     }
 
@@ -97,6 +99,15 @@ export default function DetailScreen({route, navigation}) {
                                 <HeaderRow txType={tx.type} txTypeDesc={tx.typeDesc}/>
                                 <DetailRow rowTitle={'Monto:'} rowDetail={tx.userLC + ' $'+tx.amountLC} rowSubDetail={'DAI ' + tx.amountDAI.toFixed(4)}/>
                                 <DetailRow rowTitle={'Hacia:'} rowDetail={tx.extra.protocol}/>
+                                <DetailRow rowTitle={'Fecha:'} rowDetail={(new Date(tx.timestamp)).toLocaleDateString('es-ES',formatDateOptions)}/>
+                            </>
+                        )
+            case 'withdraw-from-investment':
+                        return(
+                            <>
+                                <HeaderRow txType={tx.type} txTypeDesc={tx.typeDesc}/>
+                                <DetailRow rowTitle={'Monto:'} rowDetail={tx.userLC + ' $'+tx.amountLC} rowSubDetail={'DAI ' + tx.amountDAI.toFixed(4)}/>
+                                <DetailRow rowTitle={'Desde:'} rowDetail={tx.extra.protocol}/>
                                 <DetailRow rowTitle={'Fecha:'} rowDetail={(new Date(tx.timestamp)).toLocaleDateString('es-ES',formatDateOptions)}/>
                             </>
                         )

@@ -38,12 +38,29 @@ export default StyleSheet.create({
         fontWeight:'bold',
         color: Colors.secondaryTextColor
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginTop: '2%',
+        height: '13%',
+        width: '35%',
+        borderRadius: 5,
+        backgroundColor: '#66B2FF',
+        justifyContent:'space-around'
+    },
+    tabButton:{
+        flex: 1,
+        justifyContent:'center'
+    },
+    tabButtonText:{
+        color: Colors.mainTextColor,
+    },  
     sectionTitleContainer:{
-        height: '10%',
-        marginTop: '57%', //Change this according to cellphone
+        height: 1,
+        marginTop: '60%', //Change this according to cellphone
         position:'absolute',
         backgroundColor: Colors.secondaryBackgroundColor,
         alignItems:'center',
+        justifyContent: 'center',
         paddingTop:'3%',
         borderRadius: 30,
         alignSelf:'center',
@@ -53,7 +70,8 @@ export default StyleSheet.create({
         color: '#36A9E1',
         fontSize: 16,
         fontWeight: 'bold',
-        letterSpacing: 2
+        letterSpacing: 2,
+        paddingBottom: 10
     },
     sectionTitleUnderline: {
             borderBottomColor: Colors.backgroundMainColor   ,
@@ -63,19 +81,19 @@ export default StyleSheet.create({
     },
     //Investment container. styles.
     investmentContainer: {
-        flex: 8,
+        flex: 6,
         paddingLeft:'5%',
         paddingRight:'5%',
         color: 'black',
         width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: Colors.backgroundMainColor,
     },
     investment:{
         flexDirection: 'column',
         alignSelf:'center',
         width: '90%',
         height: 200,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: Colors.backgroundSecondaryColor,
         borderRadius: 15,
         justifyContent: 'space-around',
         marginTop: '10%',
@@ -92,10 +110,10 @@ export default StyleSheet.create({
     protocolImage:{
         width: 90,
         height: 30,
-        alignItems:'center',
-        justifyContent:'center',
+        //alignItems:'center',
+        //justifyContent:'center',
         resizeMode: 'contain',
-        alignSelf:'baseline'
+        alignSelf:'flex-start'
     },
     rate:{
         fontFamily:'Helvetica',

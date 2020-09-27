@@ -2,23 +2,23 @@ import React, { useContext } from 'react'
 import { Text, View, SafeAreaView } from 'react-native'
 import styles from './styles';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors';
+
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function HomeScreen({navigation}) {
-    const mainScreen = useSelector(state => state)
+    const mainScreen = useSelector(state => state.mainScreen)
 
     const sendMoneyETH = () => {
         console.log('todo');
-        console.log(mainScreen)
     }
 
     const investMoneyETH = () => {
-        console.log('todo');
+        navigation.navigate('Invertir')
     }
 
     const pay = () => {
@@ -38,6 +38,8 @@ export default function HomeScreen({navigation}) {
             case 'investment': return(<Entypo name="line-graph" size={40} color={Colors.notQuiteBlack} />)
             case 'money-sent': return (<FontAwesome5 name="money-bill-wave" size={40} color={Colors.notQuiteBlack}/>)
             case 'bank-transfer': return (<MaterialCommunityIcons name="bank" size={40} color={Colors.notQuiteBlack} />)
+            case 'withdraw-from-investment': return(<MaterialIcons name="attach-money" size={40} color={Colors.notQuiteBlack} />)
+            case 'withdraw': return(<FontAwesome5 name="money-check" size={40} color={Colors.notQuiteBlack} />)
         }
     }
 

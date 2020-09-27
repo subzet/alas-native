@@ -2,30 +2,32 @@ import React, { useContext } from 'react'
 import { Text, View, SafeAreaView, Image } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
+import { useSelector } from 'react-redux'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function InvestmentScreen({navigation}) {
     const {user} = useContext(AuthContext)
+    const investmentScreen = useSelector(state => state.investmentScreen)
     
 
     const Icon = ({protocol}) => {
-        switch (protocol){
-            case 'aave':
-                return(<Image source={require('../../../assets/aave.png')} style={styles.protocolImage}/>)
-            
-            case 'compound': 
-                return(<Image source={require('../../../assets/compound.png')} style={styles.protocolImage}/>)
-        }
-
-        
+        console.log(protocol.icon)
+        return(<Image source={{uri: protocol.icon}} style={styles.protocolImage}/>)
     }
 
     const viewInvestmentDetail = () => {
         console.log('todo');
+    }
+
+    const investMoneyETH = () => {
+        console.log('todo');
+    }
+
+    const pay = () => {
+        navigation.navigate('Pagar')
     }
 
 
@@ -35,8 +37,8 @@ export default function InvestmentScreen({navigation}) {
                     <>
                     <TouchableOpacity style={styles.investment} onPress={viewInvestmentDetail}>
                         <View style={styles.investmentHeader}>
-                            <Icon protocol={investment.protocol}/>
-                            <Text style={styles.rate}>{(investment.actualRate * 100).toFixed(2) + '% APR'}</Text>
+                            <Icon protocol={investment}/>
+                            <Text style={styles.rate}>{(investment.actualRate).toFixed(2) + '% APY'}</Text>
                         </View>
                         <View style={styles.investmentContent}>
                             <View style={styles.amountInvested}>
@@ -44,8 +46,8 @@ export default function InvestmentScreen({navigation}) {
                                     <Text style={styles.amountDescTitle}>Monto invertido:</Text>
                                 </View>
                                 <View style={styles.amount}>
-                                    <Text style={styles.amountLC}>{'ARS $' + investment.balanceLC}</Text>
-                                    <Text style={styles.amountDAI}>{'DAI ' + investment.balanceDAI}</Text>
+                                    <Text style={styles.amountLC}>{'$' + investment.balanceLC.toFixed(2)}</Text>
+                                    <Text style={styles.amountDAI}>{'DAI ' + investment.balanceDAI.toFixed(2)}</Text>
                                 </View>
                             </View>
                             <View style={styles.amountInvested}>
@@ -54,8 +56,8 @@ export default function InvestmentScreen({navigation}) {
                                     <Text style={styles.amountDescDate}>Desde el: {(new Date(investment.sinceDate)).toLocaleDateString('es-ES',formatDateOptions)}</Text>
                                 </View>
                                 <View style={styles.amount}>
-                                    <Text style={styles.amountLC}>{'ARS $' + investment.interestLC}</Text>
-                                    <Text style={styles.amountDAI}>{'DAI ' + investment.interestDAI}</Text>
+                                    <Text style={styles.amountLC}>{'$' + investment.interestLC.toFixed(2)}</Text>
+                                    <Text style={styles.amountDAI}>{'DAI ' + investment.interestDAI.toFixed(2)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -72,8 +74,11 @@ export default function InvestmentScreen({navigation}) {
             <View style={styles.statusContainer}>
                 <View style={styles.statusBarContainer}>
                     <Text style={styles.statusNickname}>{'@' + user.userData.nickName}</Text>
-                    <Text style={styles.statusBalanceLC}>{user.userHome.userLC +' $'+ user.userInvestment.balanceLC}</Text>
-                    <Text style={styles.statusBalanceDAI}>{user.userInvestment.balanceDAI + ' DAI'}</Text>
+                    <Text style={styles.statusBalanceLC}>{user.userHome.userLC +' $'+ investmentScreen.balanceLC.toFixed(2)}</Text>
+                    <Text style={styles.statusBalanceDAI}>{investmentScreen.balanceDAI.toFixed(2) + ' DAI'}</Text>
+                    <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.tabButton} onPress={investMoneyETH}><Text style={styles.tabButtonText}>Retirar dinero</Text></TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.sectionTitleContainer}>
                     <Text style={styles.sectionTitleText}>Inversiones</Text>
@@ -82,7 +87,7 @@ export default function InvestmentScreen({navigation}) {
             </View>
             <View style={styles.investmentContainer}>
                 <ScrollView>
-                  <Investments investments={user.userInvestment.investmentProviders}/>
+                  <Investments investments={investmentScreen.investmentProviders}/>
                 </ScrollView>
             </View>
         </View>

@@ -22,13 +22,17 @@ export default StyleSheet.create({
         alignSelf:'center',
         fontFamily: 'Helvetica',
         color: '#fff',
-        fontSize: 40
+        fontSize: 30
     },
     secondaryAmount:{
         alignSelf:'center',
         fontFamily: 'Helvetica',
+        textAlign:'center',
+        paddingTop: 30,
+        paddingLeft: 5,
+        paddingRight: 5,
         color: '#fff',
-        fontSize: 20
+        fontSize: 16
     },
     buttonContainer:{
         flex: 1

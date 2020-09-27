@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
-import {getUserMainScreen} from '../../api/api'
-import { refreshmain } from '../../redux/alasApp'
+import {getUserMainScreen, getUserInvestmentScreen} from '../../api/api'
+import { refreshmain, refreshinvestment } from '../../redux/alasApp'
 
 
 export default function PaymentStatus({route, navigation}) {
@@ -15,13 +15,21 @@ export default function PaymentStatus({route, navigation}) {
 
     const refreshMainScreen = data => distpatch(refreshmain(data))
 
+    const refreshInvestmentScreen = data => distpatch(refreshinvestment(data))
+
     async function onGoBackPress(){
         getUserMainScreen(user.token).then(
             response => {
                 refreshMainScreen(response)
+            }
+        );
+
+        getUserInvestmentScreen(user.token).then(
+            response => {
+                refreshInvestmentScreen(response)
                 navigation.navigate('Home');
             }
-        )
+        );
     }
 
     const onTryAgainPress = () => {
@@ -42,20 +50,27 @@ export default function PaymentStatus({route, navigation}) {
 
     const Wording = ({status}) => {
         if(status == 200){
-            return(
-            <>
-                <Text style={styles.mainWording}>¡Listo! Pagaste a {data.qrData.shop}:</Text>
-                <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta</Text>
-            </>
-            )
+            if(data.qrData){
+                return(
+                <>
+                    <Text style={styles.mainWording}>¡Listo! Pagaste a {data.qrData.shop}:</Text>
+                    <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta</Text>
+                </>
+                )
+            }
+            if(data.investData){
+                return(
+                <>
+                    <Text style={styles.mainWording}>¡Listo! Invertiste en {data.investData.payload.protocol}:</Text>
+                    <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
+                </>
+                )
+            }
         }
-
-        return(
-            <>
-                <Text style={styles.mainWording}>¡Uups! No pudimos procesar tu pago!</Text>
-            </>
-        )
+        if(data.qrData) return( <Text style={styles.mainWording}>¡Uups! No pudimos procesar tu pago!</Text> )
+        if(data.investData) return( <Text style={styles.mainWording}>¡Uups! No pudimos procesar tu inversión!</Text> )
     }
 
     const Action = ({status}) => {

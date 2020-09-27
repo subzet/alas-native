@@ -6,76 +6,6 @@ const getAuthorizationHeader = (token) => {
     return `Bearer ${token}`
 }
 
-// const getUserMainScreen = (user) => {
-//     return {
-//         username: 'mponsa',
-//         balanceLC: 50123.12,
-//         balanceDAI: 378.766,
-//         userLC: 'ARS',
-//         movements:[
-//             {
-//                 timestamp: '2020-07-23T02:38:55+00:00',
-//                 type: 'bank-transfer',
-//                 typeDesc: 'Depósito de dinero',
-//                 amountLC: 23000.00,
-//                 amountDAI: 164.90,
-//                 userLC: 'ARS',
-//                 extra:{
-//                     from: 'Santander Rio'
-//                 }
-//             },
-//             {
-//                 timestamp: '2020-07-23T02:38:55+00:00',
-//                 type: 'money-sent',
-//                 typeDesc: 'Envío de dinero',
-//                 amountLC: -3000.00,
-//                 amountDAI: -21.43,
-//                 userLC: 'ARS',
-//                 extra:{
-//                     from: 'DAI Wallet',
-//                     to: '0x4ac862034d0c4a9860483044836fb1f882b4ccd7',
-//                     link: 'https://etherscan.io/tx/0xd6bb8b8ded2f2551cb0f0f83bf2885beb8480d7e14fec86caa2e75370895c5dd'
-//                 }
-//             },
-//             {
-//                 timestamp: '2020-07-23T02:38:55+00:00',
-//                 type: 'money-transfer',
-//                 typeDesc: 'Recepción de dinero',
-//                 amountLC: 3000.00,
-//                 amountDAI: 21.43,
-//                 userLC: 'ARS',
-//                 extra:{
-//                     from: 'DAI Wallet',
-//                     to: '0x4ac862034d0c4a9860483044836fb1f882b4ccd7',
-//                     link: 'https://etherscan.io/tx/0xd6bb8b8ded2f2551cb0f0f83bf2885beb8480d7e14fec86caa2e75370895c5dd'
-//                 }
-//             },
-//             {
-//                 timestamp: '2020-07-23T02:38:55+00:00',
-//                 type: 'payment',
-//                 typeDesc: 'Pago',
-//                 amountLC: -130,
-//                 amountDAI: -0.92,
-//                 userLC: 'ARS',
-//                 extra:{
-//                     to: 'UADE'
-//                 }
-//             },
-//             {
-//                 timestamp: '2020-07-23T02:38:55+00:00',
-//                 type: 'investment',
-//                 typeDesc: 'Inversión',
-//                 amountLC: 1300,
-//                 amountDAI: 10.076524,
-//                 userLC: 'ARS',
-//                 extra:{
-//                     to: 'compound'
-//                 }
-//             }
-//         ] 
-
-//     }
-// }
 
 async function getUserMainScreen(token){
     let config = {
@@ -96,25 +26,36 @@ async function getUserMainScreen(token){
 }
 
 
-const getUserInvestmentScreen = (user) => {
-    return {
-        username: 'mponsa',
-        balanceLC: 1300.12,
-        balanceDAI: 10.076524,
-        userLC: 'ARS',
-        investmentProviders:[
-            {
-                protocol: 'compound',
-                actualRate: 0.0682,
-                balanceLC: 1300,
-                balanceDAI: 10.076524,
-                interestLC: 3,
-                interestDAI: 0.034,
-                sinceDate: '2020-07-23T02:38:55+00:00',
-                userLC: 'ARS'
-            }
-        ] 
+const getUserInvestmentScreen = async (token) => {
+    let config = {
+        method: 'get',
+        url: baseUrl + '/users/investmentsScreen',
+        headers: {
+            'Authorization': getAuthorizationHeader(token)
+        }
+    }
+    try{
+        response = await axios(config)
+        console.log(`Retrieved investment screen data for user: ${response.data.result.username}`)
+        return response.data.result
+    }catch(error){
+        console.log(error.message)
+        throw Error("No pudimos cargar tus datos de inversiones.")
+    }
+}
 
+const getInvestmentProviders = async () => {
+    let config = {
+        method: 'get',
+        url: baseUrl + '/rates'
+    }
+    try{
+        response = await axios(config)
+        console.log(`Retrieved rates`)
+        return response.data.data
+    }catch(error){
+        console.log(error.message)
+        throw Error("No pudimos cargar investment rates.")
     }
 }
 
@@ -156,7 +97,7 @@ async function assignEthWallet(token){
     }
 }
 
-async function makePayment(token,paymentData){
+async function makeTransaction(token,paymentData){
     const config = {
         method: 'post',
         url: baseUrl + '/transactions',
@@ -174,4 +115,4 @@ async function makePayment(token,paymentData){
     }
 }
 
-module.exports = { getDaiValue,getUserMainScreen,getUserInvestmentScreen,makePayment, assignEthWallet }
+module.exports = { getDaiValue,getUserMainScreen,getUserInvestmentScreen,makeTransaction,getInvestmentProviders, assignEthWallet }
