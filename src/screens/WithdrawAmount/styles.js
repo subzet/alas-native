@@ -6,44 +6,43 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: Colors.backgroundMainColor
+        backgroundColor: Colors.backgroundMainColor,
     },
-    mainContainer:{
-        flex: 9,
-        flexDirection: 'column',
-        justifyContent:'center'
+    inputSection:{
+        marginTop:'60%',
+        flexDirection:'column',
     },
-    statusIcon:{
-        height: 120,
-        width: 120,
+    sectionTitleUnderline: {
+        borderBottomColor: Colors.secondaryBackgroundColor,
+        borderBottomWidth: 2,
+        width: '80%',
         alignSelf: 'center',
-        marginBottom: '15%'
     },
-    mainWording:{
+    inputContainer:{
+        width:'60%',
         alignSelf:'center',
+        flexDirection:'row',
+    },
+    inputLabel:{
+        fontSize: 42,
         fontFamily: 'Helvetica',
         color: '#fff',
-        fontSize: 30,
+    },
+    input:{
+        height: 40,
+        alignSelf:'center',
+        marginRight: 5,
+        flex: 6,
+        fontSize: 50,
+        borderRadius: 1,
+        color: '#fff',
         textAlign: 'center'
     },
-    secondaryWording:{
-        alignSelf:'center',
-        fontFamily: 'Helvetica',
-        textAlign:'center',
+    paymentWording:{
+        fontSize: 20,
         color: '#fff',
-        fontSize: 17,
-        paddingTop: 30
-    },
-    secondaryWordingUnderline:{
+        paddingTop: '2%',
         alignSelf:'center',
-        fontFamily: 'Helvetica',
-        color: '#fff',
-        fontSize: 17,
-        paddingTop: 30,
-        textDecorationLine: 'underline'
-    },
-    footer:{
-        flex: 1
     },
     button: {
         backgroundColor: 'white',
@@ -51,6 +50,7 @@ export default StyleSheet.create({
         borderWidth: 2,
         marginLeft: 30,
         marginRight: 30,
+        marginTop:  300,
         height: 40,
         borderRadius: 20,
         alignItems: "center",

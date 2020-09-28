@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { Text, View, SafeAreaView, Image } from 'react-native'
 import styles from './styles';
 import { AuthContext } from '../../utils/authContext'
-import { useSelector } from 'react-redux'
+
+import { useSelector,useDispatch } from 'react-redux'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { newwithdrawal } from '../../redux/alasApp'
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -12,6 +14,9 @@ export default function InvestmentScreen({navigation}) {
     const {user} = useContext(AuthContext)
     const investmentScreen = useSelector(state => state.investmentScreen)
     
+    const distpatch = useDispatch()
+
+    const newWithdrawal = data => distpatch(newwithdrawal(data))
 
     const Icon = ({protocol}) => {
         console.log(protocol.icon)
@@ -22,12 +27,9 @@ export default function InvestmentScreen({navigation}) {
         console.log('todo');
     }
 
-    const investMoneyETH = () => {
-        console.log('todo');
-    }
-
-    const pay = () => {
-        navigation.navigate('Pagar')
+    const withdraw = (provider) => {
+        newWithdrawal({flow:'investment',payload:{provider}})
+        navigation.navigate('Withdraw')
     }
 
 
@@ -35,7 +37,7 @@ export default function InvestmentScreen({navigation}) {
             investments.map(investment => {
                 return(
                     <>
-                    <TouchableOpacity style={styles.investment} onPress={viewInvestmentDetail}>
+                    <TouchableOpacity style={styles.investment} onPress={() => withdraw(investment.protocol)}>
                         <View style={styles.investmentHeader}>
                             <Icon protocol={investment}/>
                             <Text style={styles.rate}>{(investment.actualRate).toFixed(2) + '% APY'}</Text>
@@ -76,14 +78,16 @@ export default function InvestmentScreen({navigation}) {
                     <Text style={styles.statusNickname}>{'@' + user.userData.nickName}</Text>
                     <Text style={styles.statusBalanceLC}>{user.userHome.userLC +' $'+ investmentScreen.balanceLC.toFixed(2)}</Text>
                     <Text style={styles.statusBalanceDAI}>{investmentScreen.balanceDAI.toFixed(2) + ' DAI'}</Text>
+                    {/**
                     <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.tabButton} onPress={investMoneyETH}><Text style={styles.tabButtonText}>Retirar dinero</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.tabButton} onPress={withdraw}><Text style={styles.tabButtonText}>Retirar dinero</Text></TouchableOpacity>
                     </View>
+                     */}
                 </View>
                 <View style={styles.sectionTitleContainer}>
                     <Text style={styles.sectionTitleText}>Inversiones</Text>
                 </View>
-                <View style={styles.sectionTitleUnderline}/>
+                {/** <View style={styles.sectionTitleUnderline}/>*/}
             </View>
             <View style={styles.investmentContainer}>
                 <ScrollView>

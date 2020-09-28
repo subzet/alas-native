@@ -4,6 +4,7 @@ import { HomeScreen, InvestmentScreen, SettingsScreen, ProfileScreen, DetailScre
 import { PaymentStackNavigator } from './PaymentStack'
 import { InvestmentFlowStackNavigator } from './InvestmentStack'
 import Colors from '../constants/Colors';
+import { WithdrawStackNavigator } from './WithdrawStack';
 
 const HomeStack = createStackNavigator();
 
@@ -24,6 +25,7 @@ export function InvestmentStackNavigator(){
   return(
     <InvestmentStack.Navigator screenOptions={{headerShown: false}}>
       <InvestmentStack.Screen name="Investment" component={InvestmentScreen}/>
+      <InvestmentStack.Screen name="Withdraw" component={WithdrawStackNavigator}/>
     </InvestmentStack.Navigator>
   )
 }

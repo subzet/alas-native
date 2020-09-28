@@ -23,11 +23,15 @@ export default function PaymentConfirm({route, navigation}) {
     const getTransactionType = (data) => {
         if(data.qrData) return 'payment'
         if(data.investData) return 'investment'
+        if(data.withdraw && data.withdraw.flow === 'investment') return 'withdraw-from-investment'
+        if(data.withdraw && data.withdraw.flow === 'account') return 'withdraw'
     }
 
     const getExtraData = (data) => {
         if(data.qrData) return {to: data.qrData.shop.toUpperCase()}
         if(data.investData) return {protocol: data.investData.payload.provider}
+        if(data.withdraw && data.withdraw.flow === 'investment') return {protocol: data.withdraw.payload.provider}
+        if(data.withdraw && data.withdraw.flow === 'account') return 'withdraw'
     }
 
     const formatTransactionData = (data) => {
@@ -62,6 +66,15 @@ export default function PaymentConfirm({route, navigation}) {
                     <Text style={styles.mainText}> Vas a invertir: </Text>
                     <Text style={styles.mainAmount}>{user.userHome.userLC + ' $' + data.amountLC} en {data.investData.payload.provider}</Text>
                     <Text style={styles.secondaryAmount}>Se debitaran {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta principal y los podras ver en Inversiones</Text>
+                </View>
+            )
+        }
+        if(data.withdraw){
+            return(
+                <View style={styles.textContainer}>
+                    <Text style={styles.mainText}> Vas a retirar: </Text>
+                    <Text style={styles.mainAmount}>{user.userHome.userLC + ' $' + data.amountLC} de tus inversiones</Text>
+                    <Text style={styles.secondaryAmount}>Se debitaran {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta de inversiones.</Text>
                 </View>
             )
         }

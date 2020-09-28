@@ -56,7 +56,7 @@ export default StyleSheet.create({
     },  
     sectionTitleContainer:{
         height: 1,
-        marginTop: '60%', //Change this according to cellphone
+        marginTop: '46.6%', //Change this according to cellphone
         position:'absolute',
         backgroundColor: Colors.secondaryBackgroundColor,
         alignItems:'center',
@@ -81,7 +81,7 @@ export default StyleSheet.create({
     },
     //Investment container. styles.
     investmentContainer: {
-        flex: 6,
+        flex: 10,
         paddingLeft:'5%',
         paddingRight:'5%',
         color: 'black',
@@ -96,7 +96,7 @@ export default StyleSheet.create({
         backgroundColor: Colors.backgroundSecondaryColor,
         borderRadius: 15,
         justifyContent: 'space-around',
-        marginTop: '10%',
+        marginTop: '5%',
     },
     investmentHeader:{
         flex: 1,

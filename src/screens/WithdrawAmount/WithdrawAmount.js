@@ -2,29 +2,21 @@ import React, { useContext, useState } from 'react'
 import { Animated, Text, TextInput, View, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
+import { useSelector } from 'react-redux'
 import { AuthContext } from '../../utils/authContext'
 import { getDaiValue } from '../../api/api';
 
 
-export default function PaymentAmount({navigation,route}) {
+export default function WithdrawAmount({navigation,route}) {
     const {user} = useContext(AuthContext)
     const [amount, setAmount] = useState('')
+    const withdrawalData = useSelector(state => state.withdrawal)
     
-    const { qrData } = route ? route.params : undefined
-
-    const { investData } = route ? route.params : undefined
-
-    const { sendData } = route ? route.params : undefined
 
     const Wording = () => {
-        if(qrData){
-            return <Text style={styles.paymentWording}>Ingresa el monto de pago en {user.userHome.userLC}</Text>
-        }
-        if(investData){
-            return <Text style={styles.paymentWording}>Ingresa el monto de inversión en {user.userHome.userLC}</Text>
-        }
+        if(withdrawalData.flow === 'investment')
+            return <Text style={styles.paymentWording}>Ingresa el monto a retirar de {withdrawalData.payload.protocol} en {user.userHome.userLC}</Text>
     }
-
 
    async function onContinuePress(){
         let amountConverted = validateAmount()
@@ -35,9 +27,10 @@ export default function PaymentAmount({navigation,route}) {
                 data:{
                     amountLC: amountConverted,
                     amountDAI: amountDai,
-                    qrData: qrData,
-                    investData: investData,
-                    sendData: sendData
+                    qrData: undefined,
+                    investData: undefined,
+                    sendData: undefined,
+                    withdraw: withdrawalData
                 }
             })
         }

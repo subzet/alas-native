@@ -25,3 +25,5 @@ export { default as PaymentStatus } from './PaymentStatus/PaymentStatus'
 
 export { default as PaymentConfirm } from './PaymentConfirm/PaymentConfirm'
 
+export { default as WithdrawAmount } from './WithdrawAmount/WithdrawAmount'
+

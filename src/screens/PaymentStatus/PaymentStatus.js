@@ -27,9 +27,14 @@ export default function PaymentStatus({route, navigation}) {
         getUserInvestmentScreen(user.token).then(
             response => {
                 refreshInvestmentScreen(response)
-                navigation.navigate('Home');
             }
         );
+
+        if(data.withdraw || data.withdraw.flow === 'invest'){
+            navigation.navigate('Investment');
+        }
+
+        navigation.navigate('Home')
     }
 
     const onTryAgainPress = () => {
@@ -67,6 +72,15 @@ export default function PaymentStatus({route, navigation}) {
                     <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
                 </>
                 )
+            }
+            if(data.withdraw && data.withdraw.flow === 'investment'){
+                return(
+                    <>
+                        <Text style={styles.mainWording}>¡Listo! Retiraste de {data.withdraw.payload.provider}:</Text>
+                        <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta de inversiones.</Text>
+                    </>
+                    )
             }
         }
         if(data.qrData) return( <Text style={styles.mainWording}>¡Uups! No pudimos procesar tu pago!</Text> )
