@@ -42,7 +42,7 @@ export default StyleSheet.create({
     },  
     sectionTitleContainer:{
         height: '10%',
-        marginTop: '44.5%', //Change this according to cellphone
+        marginTop: '43.5%', //Change this according to cellphone
         position:'absolute',
         backgroundColor: 'white',
         borderRadius: 30,
@@ -58,11 +58,17 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 2
     },
-    sectionTitleUnderline: {
-            borderBottomColor: Colors.backgroundMainColor,
-            borderBottomWidth: 2,
-            width: '38%',
-            marginLeft: '31%'
+    sectionTitleUnderlineData: {
+        borderBottomColor: Colors.backgroundMainColor,
+        borderBottomWidth: 2,
+        width: '38%',
+        marginLeft: '17%'
+    },
+    sectionTitleUnderlineBank: {
+        borderBottomColor: Colors.backgroundMainColor,
+        borderBottomWidth: 2,
+        width: '18%',
+        marginLeft: '66%'
     },
     transactionContainer: {
         flex: 14,
@@ -71,4 +77,60 @@ export default StyleSheet.create({
         color: 'black',
         backgroundColor: 'white',
     },
+    account:{
+        flexDirection: 'row',
+        width: '90%',
+        height: 85,
+        backgroundColor: '#F5F5F5',
+        borderRadius: 10,
+        alignSelf: 'center',
+        justifyContent:'space-around',
+        alignItems: 'center',
+        marginTop: '5%'
+    },
+    accountBank:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: Colors.notQuiteBlack
+    },
+    accountAlias:{
+        fontSize: 13,
+        color: '#808080'
+    },
+    accountCBU:{
+        fontSize: 13,
+        color: '#808080'
+    },
+    buttonHolder:{
+        marginTop: '10%',
+        alignSelf:'center'
+    },
+    input: {
+        height: '12%',
+        width: '80%',
+        borderRadius: 5,
+        overflow: 'hidden',
+        borderColor: '#bdbdbd',
+        borderWidth: 3,
+        backgroundColor: 'white',
+        marginTop: 5,
+        marginBottom: 10,
+        marginLeft: 15,
+        marginRight: 30,
+        paddingLeft: 16,
+        alignSelf:'center'
+    },
+    label:{
+        marginTop: 16,
+        color:Colors.notQuiteBlack,
+        fontWeight: 'bold',
+        marginLeft: 20
+    },
+    subText:{
+        fontSize: 13,
+        color: 'grey',
+        paddingLeft: 15,
+        paddingRight: 30,
+        textAlign:'center'
+    }
 })

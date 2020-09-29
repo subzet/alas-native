@@ -10,7 +10,7 @@ import { refreshmain, refreshinvestment } from '../../redux/alasApp'
 export default function PaymentStatus({route, navigation}) {
     const { data } = route.params
     const { response } = route.params
-    const { user, setCurrentUserData } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const distpatch = useDispatch()
 
     const refreshMainScreen = data => distpatch(refreshmain(data))
@@ -30,8 +30,8 @@ export default function PaymentStatus({route, navigation}) {
             }
         );
 
-        if(data.withdraw || data.withdraw.flow === 'invest'){
-            navigation.navigate('Investment');
+        if(data.withdraw){
+            if(data.withdraw.flow === 'invest')  navigation.navigate('Investment');
         }
 
         navigation.navigate('Home')
@@ -73,12 +73,30 @@ export default function PaymentStatus({route, navigation}) {
                 </>
                 )
             }
+            if(data.sendData){
+                return(
+                <>
+                    <Text style={styles.mainWording}>¡Listo! Enviaste a {data.sendData.address}:</Text>
+                    <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
+                </>
+                )
+            }
             if(data.withdraw && data.withdraw.flow === 'investment'){
                 return(
                     <>
                         <Text style={styles.mainWording}>¡Listo! Retiraste de {data.withdraw.payload.provider}:</Text>
                         <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
                         <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta de inversiones.</Text>
+                    </>
+                    )
+            }
+            if(data.withdraw && data.withdraw.flow === 'account'){
+                return(
+                    <>
+                        <Text style={styles.mainWording}>¡Listo! Retiraste:</Text>
+                        <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
+                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
                     </>
                     )
             }

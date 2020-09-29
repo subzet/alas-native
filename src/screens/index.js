@@ -27,3 +27,4 @@ export { default as PaymentConfirm } from './PaymentConfirm/PaymentConfirm'
 
 export { default as WithdrawAmount } from './WithdrawAmount/WithdrawAmount'
 
+export { default as EthAddress } from './EthAddress/EthAddress'

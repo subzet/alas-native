@@ -115,4 +115,33 @@ async function makeTransaction(token,paymentData){
     }
 }
 
-module.exports = { getDaiValue,getUserMainScreen,getUserInvestmentScreen,makeTransaction,getInvestmentProviders, assignEthWallet }
+async function getUserBankAccounts(user){
+    return [{
+       owner: user.userData.fullName,
+       entity: 'Santander Rio',
+       cbu: '3220001823000055910025',
+       alias: 'BOCHA.NUEZ.DURO'
+    }]
+    
+}
+
+
+async function getUserWallet(token, accountData){
+    let config = {
+        method: 'get',
+        url: baseUrl + '/wallet',
+        headers: {
+            'Authorization': getAuthorizationHeader(token)
+        }
+    }
+    try{
+        response = await axios(config)
+        console.log('Retrieved user wallet')
+        return response.data.data.wallet
+    }catch(error){
+        console.log(error.message)
+        return undefined
+    }
+}
+
+module.exports = { getDaiValue,getUserMainScreen,getUserInvestmentScreen,makeTransaction,getInvestmentProviders, assignEthWallet, getUserBankAccounts, getUserWallet}

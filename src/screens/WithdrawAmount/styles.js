@@ -41,8 +41,9 @@ export default StyleSheet.create({
     paymentWording:{
         fontSize: 20,
         color: '#fff',
-        paddingTop: '2%',
+        padding: '2%',
         alignSelf:'center',
+        textAlign: 'center',
     },
     button: {
         backgroundColor: 'white',

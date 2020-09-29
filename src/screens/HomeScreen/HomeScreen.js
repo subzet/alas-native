@@ -3,9 +3,9 @@ import { Text, View, SafeAreaView } from 'react-native'
 import styles from './styles';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors';
-
+import { newwithdrawal } from '../../redux/alasApp'
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -13,8 +13,13 @@ const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day
 export default function HomeScreen({navigation}) {
     const mainScreen = useSelector(state => state.mainScreen)
 
+    const distpatch = useDispatch()
+
+    const newWithdrawal = data => distpatch(newwithdrawal(data))
+
+
     const sendMoneyETH = () => {
-        console.log('todo');
+        navigation.navigate('Enviar')
     }
 
     const investMoneyETH = () => {
@@ -29,6 +34,15 @@ export default function HomeScreen({navigation}) {
         navigation.navigate('Detalle',{
             tx: transaction
         })
+    }
+
+    const withdraw = () => {
+        newWithdrawal({flow:'account',payload:{}})
+        navigation.navigate('Withdraw')
+    }
+
+    const userSettings = () => {
+        navigation.navigate('Perfil')
     }
 
     const Icon = ({txType}) => {
@@ -69,8 +83,8 @@ export default function HomeScreen({navigation}) {
                             <View style={styles.container}>
                                         <View style={styles.statusContainer}>
                                             <View style={styles.statusBarContainer}>
-                                                <Text style={styles.statusNickname}>{'@' + mainScreen.username}</Text>
-                                                <Text style={styles.statusBalanceLC}>{mainScreen.userLC +' $'+ mainScreen.balanceLC}</Text>
+                                                <TouchableOpacity onPress={userSettings}><Text style={styles.statusNickname}>{'@' + mainScreen.username}</Text></TouchableOpacity>
+                                                <TouchableOpacity onPress={withdraw}><Text style={styles.statusBalanceLC}>{mainScreen.userLC +' $'+ mainScreen.balanceLC}</Text></TouchableOpacity>
                                                 <Text style={styles.statusBalanceDAI}>{ transformDai(mainScreen.balanceDAI) + ' DAI'}</Text>
                                                 <View style={styles.buttonContainer}>
                                                     <TouchableOpacity style={styles.tabButton} onPress={sendMoneyETH}><Text style={styles.tabButtonText}>Enviar</Text></TouchableOpacity>

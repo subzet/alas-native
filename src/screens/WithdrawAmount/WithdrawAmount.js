@@ -16,6 +16,8 @@ export default function WithdrawAmount({navigation,route}) {
     const Wording = () => {
         if(withdrawalData.flow === 'investment')
             return <Text style={styles.paymentWording}>Ingresa el monto a retirar de {withdrawalData.payload.protocol} en {user.userHome.userLC}</Text>
+        if(withdrawalData.flow === 'account')
+            return <Text style={styles.paymentWording}>Ingresa el monto a retirar de tu cuenta principal en {user.userHome.userLC}</Text>
     }
 
    async function onContinuePress(){

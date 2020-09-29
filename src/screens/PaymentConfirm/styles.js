@@ -22,7 +22,9 @@ export default StyleSheet.create({
         alignSelf:'center',
         fontFamily: 'Helvetica',
         color: '#fff',
-        fontSize: 30
+        fontSize: 30,
+        padding: '2%',
+        textAlign: 'center'
     },
     secondaryAmount:{
         alignSelf:'center',

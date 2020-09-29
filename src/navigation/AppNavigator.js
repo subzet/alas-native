@@ -4,7 +4,7 @@ import { LoginScreen, RegistrationScreen, SplashScreen } from '../screens/';
 import { firebase } from '../firebase/config'
 import MainTabNavigator from './MainTabNavigator';
 import { AuthContext } from '../utils/authContext'
-import { getUserMainScreen, getUserInvestmentScreen } from '../api/api'
+import { getUserMainScreen, getUserInvestmentScreen,getUserWallet } from '../api/api'
 import { useDispatch } from 'react-redux'
 import { refreshmain, refreshinvestment } from '../redux/alasApp'
 
@@ -45,6 +45,12 @@ export default function AuthStack(){
               (response) => {
                     userWithData.userHome = response;
               });
+
+              getUserWallet(userWithData.token).then(
+                (response) => {
+                    userWithData.wallet = response
+                }
+              )
 
               getUserInvestmentScreen(userWithData.token).then(
                 (response) => {

@@ -23,6 +23,9 @@ export default function PaymentAmount({navigation,route}) {
         if(investData){
             return <Text style={styles.paymentWording}>Ingresa el monto de inversión en {user.userHome.userLC}</Text>
         }
+        if(sendData){
+            return <Text style={styles.paymentWording}>Ingresa el monto a enviar en {user.userHome.userLC}</Text>
+        }
     }
 
 
