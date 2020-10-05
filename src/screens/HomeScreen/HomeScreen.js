@@ -93,7 +93,7 @@ export default function HomeScreen({navigation}) {
                                                 </View>
                                             </View>
                                             <View style={styles.sectionTitleContainer}>
-                                                <Text style={styles.sectionTitleText}>Transacciones</Text>
+                                                <Text style={styles.sectionTitleText}>Movimientos</Text>
                                             </View>
                                             <View style={styles.sectionTitleUnderline}/>
                                         </View>

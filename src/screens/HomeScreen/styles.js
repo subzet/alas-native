@@ -74,7 +74,7 @@ export default StyleSheet.create({
     sectionTitleUnderline: {
             borderBottomColor: Colors.backgroundMainColor   ,
             borderBottomWidth: 2,
-            width: '40%',
+            width: '30%',
             alignSelf: 'center',
     },
     transactionContainer: {

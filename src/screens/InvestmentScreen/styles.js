@@ -117,7 +117,8 @@ export default StyleSheet.create({
     },
     rate:{
         fontFamily:'Helvetica',
-        fontSize: 16,
+        fontSize: 20,
+        paddingBottom: 15,
         color: Colors.notQuiteBlack
     },
     investmentContent:{
@@ -155,7 +156,7 @@ export default StyleSheet.create({
     },
     amountLC:{
         fontFamily:'Helvetica',
-        fontSize: 20,
+        fontSize: 22,
         color: '#808080'
     },
     amountDAI:{

@@ -41,6 +41,11 @@ export default function PaymentStatus({route, navigation}) {
         navigation.navigate('Ingresar Monto')
     }
 
+    const transformDAI = (daiAmount) =>{
+        let dai = daiAmount
+        return dai.toFixed(3)
+    }
+
     const Icon = ({status}) => {
         if(status == 200){
             return(
@@ -60,7 +65,7 @@ export default function PaymentStatus({route, navigation}) {
                 <>
                     <Text style={styles.mainWording}>¡Listo! Pagaste a {data.qrData.shop}:</Text>
                     <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta</Text>
                 </>
                 )
             }
@@ -69,7 +74,7 @@ export default function PaymentStatus({route, navigation}) {
                 <>
                     <Text style={styles.mainWording}>¡Listo! Invertiste en {data.investData.payload.protocol}:</Text>
                     <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta principal.</Text>
                 </>
                 )
             }
@@ -78,7 +83,7 @@ export default function PaymentStatus({route, navigation}) {
                 <>
                     <Text style={styles.mainWording}>¡Listo! Enviaste a {data.sendData.address}:</Text>
                     <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
+                    <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta principal.</Text>
                 </>
                 )
             }
@@ -87,7 +92,7 @@ export default function PaymentStatus({route, navigation}) {
                     <>
                         <Text style={styles.mainWording}>¡Listo! Retiraste de {data.withdraw.payload.provider}:</Text>
                         <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta de inversiones.</Text>
+                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta de inversiones.</Text>
                     </>
                     )
             }
@@ -96,7 +101,7 @@ export default function PaymentStatus({route, navigation}) {
                     <>
                         <Text style={styles.mainWording}>¡Listo! Retiraste:</Text>
                         <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + data.amountDAI} de tu cuenta principal.</Text>
+                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDai(data.amountDAI)} de tu cuenta principal.</Text>
                     </>
                     )
             }
