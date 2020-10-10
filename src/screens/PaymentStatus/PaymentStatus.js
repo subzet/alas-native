@@ -72,7 +72,7 @@ export default function PaymentStatus({route, navigation}) {
             if(data.investData){
                 return(
                 <>
-                    <Text style={styles.mainWording}>¡Listo! Invertiste en {data.investData.payload.protocol}:</Text>
+                    <Text style={styles.mainWording}>¡Listo! Tu dinero ya está generando intereses.</Text>
                     <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
                     <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDAI(data.amountDAI)} de tu cuenta principal.</Text>
                 </>
