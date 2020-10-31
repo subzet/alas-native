@@ -7,6 +7,7 @@ It has connection with Local Payments processors to stablish payments to other p
 
 An interface to real-world finance.
 
+### How To:
 
-
+For installing this project, you must have installed expo in it's latest version. Also, you need X-Code to run an iOS simulator, or an iPhone. Node version is v12.
 
