@@ -12,7 +12,7 @@ export default function PaymentQR({navigation}) {
     const getPermissionsAsync = async () => {
         const {status} = await Permissions.askAsync(Permissions.CAMERA)
         const isPermissionGranted = status === 'granted'
-        console.log(isPermissionGranted)
+        
         setCameraPermission(isPermissionGranted)
         }
     

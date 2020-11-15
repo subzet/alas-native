@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const baseUrl = 'https://alas-backend.herokuapp.com'
+const baseUrl = 'https://alas-backend-eu.herokuapp.com'
 
 const getAuthorizationHeader = (token) => {
     return `Bearer ${token}`

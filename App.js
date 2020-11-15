@@ -23,7 +23,7 @@ export default function App() {
     const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     let finalStatus = existingStatus;
     
-    console.log(finalStatus)
+    
     // only ask if permissions have not already been determined, because
     // iOS won't necessarily prompt the user a second time.
     if (existingStatus !== 'granted') {
@@ -37,10 +37,10 @@ export default function App() {
     if (finalStatus !== 'granted') {
       return;
     }
-    console.log(finalStatus)
+    
 
     // Get the token that uniquely identifies this device
-    console.log("Notification Token: ", await Notifications.getExpoPushTokenAsync());
+    
   }
   
   return (

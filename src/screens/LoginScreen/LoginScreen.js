@@ -3,25 +3,35 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import { ActivityIndicator } from 'react-native';
+import Colors from '../../constants/Colors';
 
 
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const onFooterLinkPress = () => {
         navigation.navigate('Registration')
     }
 
     const onForgotPasswordLinkPress = () => {
-        console.log("TODO");
+        
     }
 
+    const LoadingIcon = () => {
+        return (<ActivityIndicator style={{color:'#999999'}} size="small" animating={true} />)
+    };
+    
+
     const onLoginPress = () => {
+        setLoading(true)
         firebase
             .auth()
             .signInWithEmailAndPassword(email,password)
             .then((response) => {
+                //setLoading(false)
                 const uid = response.user.uid
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
@@ -75,7 +85,7 @@ export default function LoginScreen({navigation}) {
                 <TouchableOpacity
                         style={styles.button}
                         onPress={() => onLoginPress()}>
-                        <Text style={styles.buttonTitle}>Iniciar sesión</Text>
+                        {loading ? <LoadingIcon/> : <Text style={styles.buttonTitle}>Iniciar sesión</Text>}
                 </TouchableOpacity>
 
             </KeyboardAwareScrollView>

@@ -19,12 +19,12 @@ export default function InvestmentScreen({navigation}) {
     const newWithdrawal = data => distpatch(newwithdrawal(data))
 
     const Icon = ({protocol}) => {
-        console.log(protocol.icon)
+        
         return(<Image source={{uri: protocol.icon}} style={styles.protocolImage}/>)
     }
 
     const viewInvestmentDetail = () => {
-        console.log('todo');
+        
     }
 
     const withdraw = (provider) => {

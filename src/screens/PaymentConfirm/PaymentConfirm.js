@@ -1,25 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { AuthContext } from '../../utils/authContext'
 import styles from './styles';
 import { makeTransaction } from '../../api/api';
+import { ActivityIndicator } from 'react-native';
 
 
 
 export default function PaymentConfirm({route, navigation}) {
     const {user} = useContext(AuthContext)
+    const [loading, setLoading] = useState(false)
 
     const { data } = route.params
 
     async function onContinuePress(){
+        setLoading(true)
         let transaction = formatTransactionData(data)
         let response = await makeTransaction(user.token, transaction)
-        
+        setLoading(false)
         navigation.navigate('Estado', {
                 data,
                 response
         })
+        
     }
+
+    const LoadingIcon = () => {
+        return (<ActivityIndicator style={{color:'#999999'}} size="small" animating={true} />)
+    };
     
     const getTransactionType = (data) => {
         if(data.qrData) return 'payment'
@@ -33,7 +41,7 @@ export default function PaymentConfirm({route, navigation}) {
         if(data.qrData) return {to: data.qrData.shop.toUpperCase()}
         if(data.investData) return {protocol: data.investData.payload.provider}
         if(data.sendData) return {to: data.sendData.address, link: 'https://etherscan.io'}
-        console.log(data.withdraw)
+        
         if(data.withdraw){
             if(data.withdraw.flow === 'investment') return {protocol: data.withdraw.payload.provider}
             if(data.withdraw.flow === 'account') return 'withdraw'
@@ -108,11 +116,12 @@ export default function PaymentConfirm({route, navigation}) {
     return (
         <View style={styles.container}>
             <Wording/>
+            
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                             style={styles.button}
                             onPress={onContinuePress}>
-                            <Text style={styles.buttonTitle}>Continuar</Text>
+                            {loading ? <LoadingIcon/> : <Text style={styles.buttonTitle}>Continuar</Text>}
                 </TouchableOpacity>
             </View>
         </View>

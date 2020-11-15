@@ -15,7 +15,7 @@ export default function DetailScreen({route, navigation}) {
     const { tx } = route.params
 
     const onExport = () => {
-        console.log('TODO')
+        
     } 
 
     const Icon = ({txType}) => {

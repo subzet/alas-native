@@ -24,7 +24,7 @@ export default function ProfileScreen({navigation}) {
     }
 
     const addAccount = () => {
-        console.log('todo');
+        
     }
 
 

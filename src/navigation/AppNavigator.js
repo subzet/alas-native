@@ -21,7 +21,7 @@ export default function AuthStack(){
   const refreshInvestmentScreen = data => distpatch(refreshinvestment(data))
 
   const setCurrentUserData = useCallback((currentUser) => {
-    console.log('Updating user data!!')
+    
     setUser(currentUser);
   },[]);
  
@@ -34,7 +34,7 @@ export default function AuthStack(){
         idToken => {
           userWithData.token = idToken;
           userWithData.userAuth = user; 
-          console.log(`Retrieved token from get Token${userWithData.token}`)
+          
           
           //Get user DATA.
           firebase.firestore().collection('users').doc(user.uid).get().then(
