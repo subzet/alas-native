@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 import { assignEthWallet } from '../../api/api'
+import { ActivityIndicator } from 'react-native';
 
 export default function RegistrationScreen({navigation}) {
     const [fullName, setFullName] = useState('')
@@ -12,16 +13,23 @@ export default function RegistrationScreen({navigation}) {
     const [document, setDocument] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
     }
+    
+
+    const LoadingIcon = () => {
+        return (<ActivityIndicator style={{color:'#999999'}} size="small" animating={true} />)
+    };
 
     const onRegisterPress = () => {
         if(password !== confirmPassword) {
             alert("Las contraseñas no coinciden.")
             return
         }
+        setLoading(true)
         firebase
             .auth()
             .createUserWithEmailAndPassword(email,password) //Creates a new account.
@@ -47,7 +55,8 @@ export default function RegistrationScreen({navigation}) {
             userRef //Storing data as key: uid value: data.
                 .doc(uid)
                 .set(data)
-                .then(() => {   
+                .then(() => {
+                    setLoading(false)   
                     firebase.auth().signOut()     
                     navigation.navigate('Login')
                 })
@@ -133,7 +142,7 @@ export default function RegistrationScreen({navigation}) {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => onRegisterPress()}>
-                    <Text style={styles.buttonTitle}>Registrarse.</Text>
+                    {loading ? <LoadingIcon/> : <Text style={styles.buttonTitle}>Registrarse</Text>}
                 </TouchableOpacity>
             </KeyboardAwareScrollView>
         </View>

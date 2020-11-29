@@ -48,7 +48,7 @@ export default function InvestmentProvidersScreen({navigation}) {
                         </View>
                         <View style={styles.ratesContainer}>
                             <Text style={styles.rate}>{(provider.actualInterest).toFixed(2) + '% TNA'}</Text>
-                            <Text style={styles.rateAvg}>{'Promedio ultimos 30 días: '+(provider.avgInterest).toFixed(2) + '% TNA'}</Text>
+                            {/**<Text style={styles.rateAvg}>{'Promedio ultimos 30 días: '+(provider.avgInterest).toFixed(2) + '% TNA'}</Text> */}
                         </View>
                 </TouchableOpacity>
                 </>

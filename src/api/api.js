@@ -52,7 +52,7 @@ const getInvestmentProviders = async () => {
     try{
         response = await axios(config)
         console.log(`Retrieved rates`)
-        return response.data.data
+        return response.data.data.filter(provider => provider.providerName != 'compound v2')
     }catch(error){
         console.log(error.message)
         throw Error("No pudimos cargar investment rates.")
