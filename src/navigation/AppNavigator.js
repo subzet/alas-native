@@ -35,6 +35,7 @@ export default function AuthStack(){
           userWithData.token = idToken;
           userWithData.userAuth = user; 
           
+          console.log(`User token: ${idToken}`)
           
           //Get user DATA.
           firebase.firestore().collection('users').doc(user.uid).get().then(
