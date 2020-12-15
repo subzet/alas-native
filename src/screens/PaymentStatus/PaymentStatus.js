@@ -31,8 +31,9 @@ export default function PaymentStatus({route, navigation}) {
         );
 
         if(data.withdraw){
-            if(data.withdraw.flow === 'invest')  navigation.navigate('Investment');
+            if(data.withdraw.flow === 'investment')  navigation.navigate('Investment');
         }
+
 
         navigation.navigate('Home')
     }
@@ -41,7 +42,7 @@ export default function PaymentStatus({route, navigation}) {
         navigation.navigate('Ingresar Monto')
     }
 
-    const transformDAI = (daiAmount) =>{
+    function transformDAI(daiAmount){
         let dai = daiAmount
         return dai.toFixed(3)
     }
@@ -101,7 +102,7 @@ export default function PaymentStatus({route, navigation}) {
                     <>
                         <Text style={styles.mainWording}>¡Listo! Retiraste:</Text>
                         <Text style={styles.mainWording}>{user.userHome.userLC + ' $' + data.amountLC}</Text>
-                        <Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDai(data.amountDAI)} de tu cuenta principal.</Text>
+                        {/**<Text style={styles.secondaryWording}>Se debitaron {'DAI ' + transformDai(data.amountDAI)} de tu cuenta principal.</Text>**/}
                     </>
                     )
             }
