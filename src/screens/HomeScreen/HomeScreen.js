@@ -1,21 +1,38 @@
-import React, { useContext } from 'react'
-import { Text, View, SafeAreaView } from 'react-native'
+import React, { useContext, useState, useCallback } from 'react'
+import { Text, View, SafeAreaView, ScrollView, RefreshControl } from 'react-native'
 import styles from './styles';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome5,Entypo } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors';
 import { newwithdrawal } from '../../redux/alasApp'
+import {getUserMainScreen} from '../../api/api'
+import { AuthContext } from '../../utils/authContext'
+import { refreshmain } from '../../redux/alasApp'
 
 
 const formatDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export default function HomeScreen({navigation}) {
     const mainScreen = useSelector(state => state.mainScreen)
+    const [refreshing,setRefreshing] = useState(false)
+    const { user } = useContext(AuthContext)
 
     const distpatch = useDispatch()
 
     const newWithdrawal = data => distpatch(newwithdrawal(data))
+
+    const refreshMainScreen = data => distpatch(refreshmain(data))
+
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true)
+        getUserMainScreen(user.token).then(
+            response => {
+                setRefreshing(false)
+                refreshMainScreen(response)
+            }
+        );
+    },[refreshing])
 
 
     const sendMoneyETH = () => {
@@ -98,7 +115,12 @@ export default function HomeScreen({navigation}) {
                                             <View style={styles.sectionTitleUnderline}/>
                                         </View>
                                         <View style={styles.transactionContainer}>
-                                            <ScrollView>
+                                            <ScrollView refreshControl={
+                                            <RefreshControl
+                                                refreshing={refreshing}
+                                                onRefresh={onRefresh}
+                                            />
+                                            }>
                                             <Transactions transactions={mainScreen.movements}/>
                                             </ScrollView>
                                         </View>
