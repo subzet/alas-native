@@ -11,3 +11,6 @@ An interface to real-world finance.
 
 For installing this project, you must have installed expo in it's latest version. Also, you need X-Code to run an iOS simulator, or an iPhone. Node version is v12.
 
+## Know ALAS
+
+Check out these [slides](https://docs.google.com/presentation/d/19fQORKHi2AhjehcXukmRrlwp6CH1Lf68dzyijMJCqd4/edit?usp=sharing) to see what ALAS is up to!
